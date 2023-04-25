@@ -1,0 +1,9 @@
+id,name,email,password,type
+1,"Громов Никита Сергеевич",hromay.n@gmail.com,12345,MANAGER
+2,"Владислав Сергей Валентинович",ser@gmail.com,123456,CUSTOMER
+3,"Александров Исак Артёмович",alex@gmail.com,1234567,CUSTOMER
+4,"Воронов Варлаам Федорович",vor@gmail.com,12345678,CUSTOMER
+5,"Матвеев Наум Леонидович",mat@gmail.com,123456789,CUSTOMER
+6,"Трофимова Весняна Геннадиевна",trof@gmail.com,1234567890,CUSTOMER
+7,"Сорокина Эрида Арсеньевна",sorok@gmail.com,12345678901,CUSTOMER
+8,"Пономарёва Эля Денисовна",bibiszianka228@gmail.com,123456789012,CUSTOMER

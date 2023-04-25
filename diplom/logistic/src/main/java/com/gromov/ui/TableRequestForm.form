@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.gromov.ui.TableRequestForm">
+  <grid id="27dc6" binding="tableRequestPanel" layout-manager="FormLayout">
+    <rowspec value="center:d:noGrow"/>
+    <rowspec value="top:4dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:4dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:4dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <colspec value="fill:d:grow"/>
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="fbe95" binding="requestLabelPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="786aa" class="javax.swing.JLabel" binding="requestLabel">
+            <constraints/>
+            <properties>
+              <text value="Заявки"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="138de" binding="buttonPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="fd21" class="javax.swing.JButton" binding="backButton">
+            <constraints/>
+            <properties>
+              <text value="Назад"/>
+            </properties>
+          </component>
+          <component id="1ae16" class="javax.swing.JButton" binding="updateButton">
+            <constraints/>
+            <properties>
+              <text value="Обновить таблицу"/>
+            </properties>
+          </component>
+          <component id="b49f9" class="javax.swing.JButton" binding="excelExportButton">
+            <constraints/>
+            <properties>
+              <text value="Экспорт данных Excel"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="806cc" binding="requestTablePanePanel" layout-manager="FormLayout">
+        <rowspec value="center:d:grow"/>
+        <rowspec value="top:4dlu:noGrow"/>
+        <rowspec value="center:d:grow"/>
+        <colspec value="fill:d:grow"/>
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms top="0" left="5" bottom="0" right="5"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <scrollpane id="6dfa0" binding="requestTablePane">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <forms defaultalign-horz="false" defaultalign-vert="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="ac32a" class="javax.swing.JTable" binding="requestTable">
+                <constraints/>
+                <properties/>
+              </component>
+            </children>
+          </scrollpane>
+        </children>
+      </grid>
+      <grid id="1e2fd" binding="findByEmailPanel" layout-manager="FormLayout">
+        <rowspec value="center:d:noGrow"/>
+        <colspec value="fill:max(d;4px):noGrow"/>
+        <colspec value="left:4dlu:noGrow"/>
+        <colspec value="fill:d:grow"/>
+        <colspec value="left:4dlu:noGrow"/>
+        <colspec value="fill:d:noGrow"/>
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms top="0" left="5" bottom="0" right="5"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="ad07f" class="javax.swing.JTextField" binding="findByEmailField">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <forms defaultalign-horz="false"/>
+            </constraints>
+            <properties>
+              <text value=""/>
+              <toolTipText value="Введите email"/>
+            </properties>
+          </component>
+          <component id="9350e" class="javax.swing.JButton" binding="findButton">
+            <constraints>
+              <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value="Поиск"/>
+            </properties>
+          </component>
+          <component id="d5e97" class="javax.swing.JLabel" binding="findLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value="Введите email:"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>

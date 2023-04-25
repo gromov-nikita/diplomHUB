@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.gromov.ui.ManagerOrderForm">
+  <grid id="27dc6" binding="managerOrderPanel" layout-manager="FormLayout">
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:4dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:4dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:4dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:4dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <colspec value="fill:max(d;4px):noGrow"/>
+    <colspec value="left:4dlu:noGrow"/>
+    <colspec value="fill:d:grow"/>
+    <colspec value="left:4dlu:noGrow"/>
+    <colspec value="fill:max(d;4px):noGrow"/>
+    <colspec value="left:4dlu:noGrow"/>
+    <colspec value="fill:max(d;4px):noGrow"/>
+    <constraints>
+      <xy x="20" y="20" width="555" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="c33f" binding="oldStatusLabelPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms top="0" left="5" bottom="0" right="0"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="fe3f0" class="javax.swing.JLabel" binding="oldStatusLabel">
+            <constraints/>
+            <properties>
+              <text value="Фильтр заказов"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="e8e5d" binding="orderLabelPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="d4af1" class="javax.swing.JLabel" binding="orderLabel">
+            <constraints/>
+            <properties>
+              <text value="Заказ"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="b3a6a" binding="newStatusLabelPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+        <constraints>
+          <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="4ed72" class="javax.swing.JLabel" binding="newStatusLabel">
+            <constraints/>
+            <properties>
+              <text value="Статус"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="ebd94" binding="mainOrderMenuLabelPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+        <constraints>
+          <grid row="0" column="6" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children/>
+      </grid>
+      <grid id="a9f8a" binding="oldStatusComboPanel" layout-manager="FormLayout">
+        <rowspec value="center:d:noGrow"/>
+        <colspec value="fill:d:grow"/>
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="51959" class="javax.swing.JComboBox" binding="oldStatusCombo">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <forms top="0" left="10" bottom="0" right="0"/>
+            </constraints>
+            <properties/>
+          </component>
+        </children>
+      </grid>
+      <grid id="8086f" binding="orderComboPanel" layout-manager="FormLayout">
+        <rowspec value="center:d:noGrow"/>
+        <colspec value="fill:d:grow"/>
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="2b070" class="javax.swing.JComboBox" binding="orderCombo">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties/>
+          </component>
+        </children>
+      </grid>
+      <grid id="12d9b" binding="newStatusComboPanel" layout-manager="FormLayout">
+        <rowspec value="center:d:noGrow"/>
+        <colspec value="fill:d:grow"/>
+        <constraints>
+          <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="71a91" class="javax.swing.JComboBox" binding="newStatusCombo">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <model/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="3bf1b" binding="backButtonPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms top="0" left="5" bottom="0" right="0"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="29048" class="javax.swing.JButton" binding="backButton">
+            <constraints/>
+            <properties>
+              <text value="Назад"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="f7cfd" binding="updateButtonPanel" layout-manager="FormLayout">
+        <rowspec value="center:d:noGrow"/>
+        <colspec value="fill:d:grow"/>
+        <constraints>
+          <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="6d014" class="javax.swing.JButton" binding="updateButton">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value="Обновить"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="515f9" binding="getTableButtonPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="2">
+        <constraints>
+          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="5b3a5" class="javax.swing.JButton" binding="getCommentsButton">
+            <constraints/>
+            <properties>
+              <text value="Отзывы"/>
+            </properties>
+          </component>
+          <component id="fb2bc" class="javax.swing.JButton" binding="getDriverTable">
+            <constraints/>
+            <properties>
+              <text value="Водители"/>
+            </properties>
+          </component>
+          <component id="bae06" class="javax.swing.JButton" binding="getOrderTableButton">
+            <constraints/>
+            <properties>
+              <text value="Заказы"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>

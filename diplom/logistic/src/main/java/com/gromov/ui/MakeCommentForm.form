@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.gromov.ui.MakeCommentForm">
+  <grid id="27dc6" binding="makeCommentPanel" layout-manager="FormLayout">
+    <rowspec value="center:d:noGrow"/>
+    <rowspec value="top:4dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:4dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:4dlu:noGrow"/>
+    <rowspec value="center:d:grow"/>
+    <rowspec value="top:4dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:4dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:4dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <colspec value="fill:121px:noGrow"/>
+    <colspec value="left:4dlu:noGrow"/>
+    <colspec value="fill:d:grow"/>
+    <constraints>
+      <xy x="20" y="20" width="578" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="fb28c" class="javax.swing.JLabel" binding="orderLabel">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <forms top="5" left="5" bottom="0" right="0"/>
+        </constraints>
+        <properties>
+          <text value="Выберите заказ:"/>
+        </properties>
+      </component>
+      <component id="c763f" class="javax.swing.JLabel" binding="markLabel">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <forms top="0" left="5" bottom="0" right="0"/>
+        </constraints>
+        <properties>
+          <text value="Оцените услугу:"/>
+        </properties>
+      </component>
+      <component id="b613b" class="javax.swing.JLabel" binding="textLabel">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <forms top="0" left="5" bottom="0" right="0"/>
+        </constraints>
+        <properties>
+          <text value="Напишите отзыв:"/>
+        </properties>
+      </component>
+      <grid id="7ed5b" binding="radioPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms top="0" left="0" bottom="0" right="5"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="c0b5e" class="javax.swing.JRadioButton" binding="oneRadio">
+            <constraints/>
+            <properties>
+              <text value="1"/>
+            </properties>
+          </component>
+          <component id="b8062" class="javax.swing.JRadioButton" binding="twoRadio">
+            <constraints/>
+            <properties>
+              <text value="2"/>
+            </properties>
+          </component>
+          <component id="8f421" class="javax.swing.JRadioButton" binding="threeRadio">
+            <constraints/>
+            <properties>
+              <text value="3"/>
+            </properties>
+          </component>
+          <component id="f948d" class="javax.swing.JRadioButton" binding="fourRadio">
+            <constraints/>
+            <properties>
+              <text value="4"/>
+            </properties>
+          </component>
+          <component id="a4ec8" class="javax.swing.JRadioButton" binding="fiveRadio">
+            <constraints/>
+            <properties>
+              <text value="5"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <component id="73297" class="javax.swing.JComboBox" binding="orderCombo">
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+          <forms top="5" left="0" bottom="0" right="5"/>
+        </constraints>
+        <properties/>
+      </component>
+      <scrollpane id="66dd4" binding="commentPane">
+        <constraints>
+          <grid row="4" column="2" row-span="8" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms top="0" left="0" bottom="0" right="5" defaultalign-horz="false" defaultalign-vert="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="f79ce" class="javax.swing.JTextArea" binding="comment">
+            <constraints/>
+            <properties/>
+          </component>
+        </children>
+      </scrollpane>
+      <grid id="94677" binding="buttonPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="2">
+        <constraints>
+          <grid row="12" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="9f2cb" class="javax.swing.JButton" binding="makeCommentButton">
+            <constraints/>
+            <properties>
+              <text value="Отправить отзыв"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <component id="de72f" class="javax.swing.JButton" binding="backButton">
+        <constraints>
+          <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <forms top="0" left="5" bottom="0" right="0"/>
+        </constraints>
+        <properties>
+          <text value="Назад"/>
+        </properties>
+      </component>
+      <vspacer id="9de3c">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-vert="false"/>
+        </constraints>
+      </vspacer>
+    </children>
+  </grid>
+  <buttonGroups>
+    <group name="radioButtonGroup" bound="true">
+      <member id="c0b5e"/>
+      <member id="b8062"/>
+      <member id="8f421"/>
+      <member id="f948d"/>
+      <member id="a4ec8"/>
+    </group>
+  </buttonGroups>
+</form>
