@@ -4,6 +4,7 @@ import com.gromov.entity.*;
 import com.gromov.entity.enums.DriverAvailability;
 import com.gromov.entity.enums.OrderStatus;
 import com.gromov.entity.enums.RequestStatus;
+import com.gromov.entity.enums.WorkStatus;
 import com.gromov.service.DAO.DriverDAO;
 import com.gromov.service.DAO.OrderHistoryDAO;
 import com.gromov.service.DAO.RequestDAO;
@@ -12,10 +13,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class ManagerProfileForm {
     private static JFrame managerProfileForm = new JFrame();
     private static User user;
+    private static List<Request> requests = null;
     private JPanel managerProfilePanel;
     private JComboBox driverCombo;
     private JButton cancelButton;
@@ -30,6 +33,7 @@ public class ManagerProfileForm {
     private JPanel driverLabelPanel;
     private JPanel backButtonPanel;
     private JButton requestTableButton;
+    private JButton getRequests;
 
     public ManagerProfileForm(User user) {
         managerProfileForm.setAlwaysOnTop(true);
@@ -43,9 +47,10 @@ public class ManagerProfileForm {
         Dimension dimension = toolkit.getScreenSize();
         managerProfileForm.setBounds(dimension.width/2-500,dimension.height/2-75,1000,150);
         requestCombo.setMaximumRowCount(10);
-        fillRequestCombo();
+        fillDriverComboByAvailabilityAndUser();
+        fillRequestComboByTruck();
         driverCombo.setMaximumRowCount(10);
-        fillDriverComboByCargo();
+
 
         backButton.addActionListener(new ActionListener() {
             @Override
@@ -59,7 +64,7 @@ public class ManagerProfileForm {
             public void actionPerformed(ActionEvent e) {
                 Request request = (Request) requestCombo.getSelectedItem();
                 request.setStatus(RequestStatus.CANCELED);
-                RequestDAO.updateStatus(request);
+                RequestDAO.updateRequest(request);
                 fillRequestCombo();
             }
         });
@@ -73,18 +78,22 @@ public class ManagerProfileForm {
                         (Driver)driverCombo.getSelectedItem()));
                 request.setStatus(RequestStatus.ACCEPTED);
                 driver.setAvailability(DriverAvailability.NOT_AVAILABLE);
-                RequestDAO.updateStatus(request);
+                RequestDAO.updateRequest(request);
                 DriverDAO.updateStatus(driver);
                 fillRequestCombo();
             }
         });
-
+/*
         requestCombo.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 fillDriverComboByCargo();
             }
+
+
         });
+*/
         orderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -97,6 +106,18 @@ public class ManagerProfileForm {
             public void actionPerformed(ActionEvent e) {
                 new TableRequestForm(user);
                 managerProfileForm.dispose();
+            }
+        });
+        getRequests.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                swapWorkStatus(requests);
+                fillRequestComboByTruck();
+            }
+        });
+        driverCombo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
             }
         });
     }
@@ -116,5 +137,46 @@ public class ManagerProfileForm {
             }
         }
 
+    }
+    private void fillRequestComboByTruck() {
+        requestCombo.removeAllItems();
+        Driver driver = (Driver)driverCombo.getSelectedItem();
+        if(driver != null) {
+            requests = swapWorkStatus(
+                    RequestDAO.getListOfMaxTenFreeRequestsStrongByTruck(driver.getTruck()));
+            if(requests!=null && requests.size()!=0) {
+                for (Request x : requests) {
+                    requestCombo.addItem(x);
+                }
+            }
+            else {
+                requests = swapWorkStatus(RequestDAO.getListOfMaxTenFreeRequestsByTruck(driver.getTruck()));
+                if(requests!=null && requests.size()!=0) {
+                    for (Request x : requests) {
+                        requestCombo.addItem(x);
+                    }
+                }
+            }
+        }
+    }
+    private void fillDriverComboByAvailabilityAndUser() {
+        driverCombo.removeAllItems();
+        for (Driver x : DriverDAO.getListOfFreeDriversByUser(user)) {
+            driverCombo.addItem(x);
+        }
+    }
+    private List<Request> swapWorkStatus(List<Request> requests) {
+        if(requests!=null) {
+            for (Request x : requests) {
+                if (x.getWorkStatus().equals(WorkStatus.BOOKED)) {
+                    x.setWorkStatus(WorkStatus.FREE);
+                    RequestDAO.updateRequest(x);
+                } else {
+                    x.setWorkStatus(WorkStatus.BOOKED);
+                    RequestDAO.updateRequest(x);
+                }
+            }
+        }
+        return requests;
     }
 }

@@ -12,25 +12,11 @@
     <colspec value="left:4dlu:noGrow"/>
     <colspec value="fill:d:grow"/>
     <constraints>
-      <xy x="20" y="20" width="589" height="400"/>
+      <xy x="20" y="20" width="716" height="400"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <component id="dde33" class="javax.swing.JComboBox" binding="requestCombo">
-        <constraints>
-          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-          <forms top="5" left="0" bottom="0" right="5"/>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="517cb" class="javax.swing.JComboBox" binding="driverCombo">
-        <constraints>
-          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-          <forms top="0" left="0" bottom="0" right="5"/>
-        </constraints>
-        <properties/>
-      </component>
       <grid id="bc3d8" binding="cancelAcceptPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="2">
         <constraints>
           <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -51,6 +37,12 @@
               <text value="Заявки"/>
             </properties>
           </component>
+          <component id="290c8" class="javax.swing.JButton" binding="getRequests">
+            <constraints/>
+            <properties>
+              <text value="Захватить заявки"/>
+            </properties>
+          </component>
           <component id="dbe83" class="javax.swing.JButton" binding="cancelButton">
             <constraints/>
             <properties>
@@ -61,38 +53,6 @@
             <constraints/>
             <properties>
               <text value="Принять заявку"/>
-            </properties>
-          </component>
-        </children>
-      </grid>
-      <grid id="b0e37" binding="requestLabelPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
-        <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-          <forms top="5" left="5" bottom="0" right="0"/>
-        </constraints>
-        <properties/>
-        <border type="none"/>
-        <children>
-          <component id="7de56" class="javax.swing.JLabel" binding="requestLabel">
-            <constraints/>
-            <properties>
-              <text value="Заявки:"/>
-            </properties>
-          </component>
-        </children>
-      </grid>
-      <grid id="a8f62" binding="driverLabelPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
-        <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-          <forms top="0" left="5" bottom="0" right="0"/>
-        </constraints>
-        <properties/>
-        <border type="none"/>
-        <children>
-          <component id="6e783" class="javax.swing.JLabel" binding="driverLabel">
-            <constraints/>
-            <properties>
-              <text value="Водители:"/>
             </properties>
           </component>
         </children>
@@ -110,6 +70,52 @@
             <properties>
               <horizontalAlignment value="0"/>
               <text value="Выйти"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="a8f62" binding="driverLabelPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms top="0" left="5" bottom="0" right="0"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="6e783" class="javax.swing.JLabel" binding="driverLabel">
+            <constraints/>
+            <properties>
+              <text value="Водители:"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <component id="dde33" class="javax.swing.JComboBox" binding="requestCombo">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+          <forms top="5" left="0" bottom="0" right="5"/>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="517cb" class="javax.swing.JComboBox" binding="driverCombo">
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+          <forms top="0" left="0" bottom="0" right="5"/>
+        </constraints>
+        <properties/>
+      </component>
+      <grid id="b0e37" binding="requestLabelPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms top="5" left="5" bottom="0" right="0"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="7de56" class="javax.swing.JLabel" binding="requestLabel">
+            <constraints/>
+            <properties>
+              <text value="Заявки:"/>
             </properties>
           </component>
         </children>

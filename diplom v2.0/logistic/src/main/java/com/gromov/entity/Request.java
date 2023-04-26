@@ -1,6 +1,7 @@
 package com.gromov.entity;
 
 import com.gromov.entity.enums.RequestStatus;
+import com.gromov.entity.enums.WorkStatus;
 import jakarta.persistence.*;
 
 import java.sql.Date;
@@ -21,6 +22,10 @@ public class Request {
     @Enumerated(EnumType.STRING)
     @Column(name = "status",nullable = false)
     private RequestStatus status;
+    @Basic
+    @Enumerated(EnumType.STRING)
+    @Column(name = "workStatus",nullable = false)
+    private WorkStatus workStatus;
     @ManyToOne
     @JoinColumn(name = "userID",referencedColumnName = "id")
     private User user;
@@ -111,6 +116,14 @@ public class Request {
 
     public void setStatus(RequestStatus status) {
         this.status = status;
+    }
+
+    public WorkStatus getWorkStatus() {
+        return workStatus;
+    }
+
+    public void setWorkStatus(WorkStatus workStatus) {
+        this.workStatus = workStatus;
     }
 
     @Override

@@ -28,6 +28,9 @@ public class Driver {
     private Truck truck;
     @OneToMany(mappedBy = "driver")
     private Collection<OrderHistory> orderHistoryEntities;
+    @ManyToOne
+    @JoinColumn(name = "userID",referencedColumnName = "id")
+    private User user;
 
 
     public int getId() {

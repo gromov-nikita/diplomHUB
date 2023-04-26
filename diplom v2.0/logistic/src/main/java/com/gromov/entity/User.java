@@ -27,7 +27,8 @@ public class User {
     private UserType type;
     @OneToMany(mappedBy = "user")
     private Collection<Request> requestEntities;
-
+    @OneToMany(mappedBy = "user")
+    private Collection<Driver> drivers;
     public User() {
     }
 
@@ -99,6 +100,13 @@ public class User {
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
 
         return true;
+    }
+    public Collection<Driver> getDrivers() {
+        return drivers;
+    }
+
+    public void setDrivers(Collection<Driver> drivers) {
+        this.drivers = drivers;
     }
 
     @Override
