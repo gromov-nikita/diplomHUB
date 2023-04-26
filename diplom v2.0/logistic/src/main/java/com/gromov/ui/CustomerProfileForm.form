@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.gromov.ui.CustomerProfileForm">
+  <grid id="27dc6" binding="customerProfilePanel" layout-manager="FormLayout">
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:4dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:4dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <colspec value="fill:d:noGrow"/>
+    <colspec value="left:4dlu:noGrow"/>
+    <colspec value="fill:d:grow"/>
+    <constraints>
+      <xy x="20" y="20" width="500" height="172"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="48f67" binding="requestButtonLabel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="2">
+        <constraints>
+          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms top="0" left="0" bottom="0" right="5"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="43af8" class="javax.swing.JButton" binding="updateTableButton">
+            <constraints/>
+            <properties>
+              <text value="Обновить таблицу"/>
+            </properties>
+          </component>
+          <component id="bf235" class="javax.swing.JButton" binding="commentButton">
+            <constraints/>
+            <properties>
+              <text value="Оставить отзыв"/>
+            </properties>
+          </component>
+          <component id="ea5ee" class="javax.swing.JButton" binding="makeRequestButton">
+            <constraints/>
+            <properties>
+              <text value="Сделать запрос"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="88a2" binding="backButtonPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="1c41f" class="javax.swing.JButton" binding="backButton">
+            <constraints/>
+            <properties>
+              <text value="Выйти"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="e2e03" binding="tableScrollPanePanel" layout-manager="FormLayout">
+        <rowspec value="center:d:noGrow"/>
+        <colspec value="fill:d:grow"/>
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms top="0" left="5" bottom="0" right="5"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <scrollpane id="68911" binding="tableScrollPane">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <forms top="5" left="0" bottom="5" right="5" defaultalign-horz="false" defaultalign-vert="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="bb651" class="javax.swing.JTable" binding="requestTable">
+                <constraints/>
+                <properties>
+                  <preferredScrollableViewportSize width="450" height="400"/>
+                  <updateSelectionOnSort value="true"/>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
+        </children>
+      </grid>
+      <grid id="a6bb9" binding="requestLabelPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms top="5" left="0" bottom="0" right="0"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="60f86" class="javax.swing.JLabel" binding="requestLabel">
+            <constraints/>
+            <properties>
+              <text value="Запросы"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
