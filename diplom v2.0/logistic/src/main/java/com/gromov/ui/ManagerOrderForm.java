@@ -73,14 +73,14 @@ public class ManagerOrderForm {
         getOrderTableButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new TableOrderForm(user);
+                new TableOrderForManagerForm(user);
                 managerOrderForm.dispose();
             }
         });
         getDriverTable.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new TableDriverForm(user);
+                new TableDriverForManagerForm(user);
                 managerOrderForm.dispose();
             }
         });
@@ -123,7 +123,7 @@ public class ManagerOrderForm {
     }
     private void fillOrderCombo(OrderStatus status) {
         orderCombo.removeAllItems();
-        for(OrderHistory x : OrderHistoryDAO.getListOfOrdersByStatus(status)) {
+        for(OrderHistory x : OrderHistoryDAO.getListOfOrdersByStatusAndManager(status,user)) {
             orderCombo.addItem(x);
         }
     }

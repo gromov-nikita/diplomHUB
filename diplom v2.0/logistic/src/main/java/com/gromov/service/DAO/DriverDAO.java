@@ -142,4 +142,122 @@ public class DriverDAO {
         session.close();
         return drivers;
     }
+    //*****************************************************************************************************************************
+    public static List<Driver> getListOfDriversByNameAndManager(String name,User user) {
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        List<Driver> drivers = session.createQuery(
+                        "from Driver as d where d.name =:name AND d.user.id=:id")
+                .setParameter("name",name).setParameter("id",user.getId()).getResultList();
+        session.close();
+        return drivers;
+    }
+    public static List<Driver> getListOfDriversByAvailabilityAndNameAndManager(
+            String name, DriverAvailability availability,User user) {
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        List<Driver> drivers;
+        if (availability.equals(DriverAvailability.ALL)) {
+            drivers = session.createQuery(
+                            "from Driver as d where d.name =:name AND d.user.id=:id")
+                    .setParameter("name", name).setParameter("id",user.getId()).getResultList();
+        }
+        else {
+            drivers = session.createQuery(
+                            "from Driver as d where d.name =:name and d.availability=: availability " +
+                                    "AND d.user.id=:id")
+                    .setParameter("name", name).setParameter("availability", availability)
+                    .setParameter("id",user.getId()).getResultList();
+        }
+        session.close();
+        return drivers;
+    }
+    public static List<Driver> getListOfDriversByAvailabilityAndWeightMoreAndManager
+            (int weight,DriverAvailability availability,User user) {
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        List<Driver> drivers;
+        if(availability.equals(DriverAvailability.ALL)) {
+            drivers = session.createQuery(
+                            "from Driver as d where d.truck.weight >=:weight AND d.user.id=:id")
+                    .setParameter("weight", weight).setParameter("id",user.getId()).getResultList();
+        }
+        else {
+            drivers = session.createQuery(
+                            "from Driver as d where d.truck.weight >=:weight and d.availability=: availability " +
+                                    "AND d.user.id=:id")
+                    .setParameter("weight", weight).setParameter("availability", availability)
+                    .setParameter("id",user.getId()).getResultList();
+        }
+        session.close();
+        return drivers;
+    }
+    public static List<Driver> getListOfDriversByManager(User user) {
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        List<Driver> drivers = session.createQuery(
+                "from Driver as d where d.user.id=:id")
+                .setParameter("id",user.getId()).getResultList();
+        session.close();
+        return drivers;
+    }
+    public static List<Driver> getListOfDriversByAvailabilityAndManager(
+            DriverAvailability availability,User user) {
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        List<Driver> drivers;
+        if(availability.equals(DriverAvailability.ALL)) {
+            drivers = getListOfDriversByManager(user);
+        }
+        else {
+            drivers = session.createQuery(
+                            "from Driver as d where d.availability =:availability AND d.user.id=:id")
+                    .setParameter("availability", availability).setParameter("availability", availability)
+                    .setParameter("id",user.getId()).getResultList();
+        }
+        session.close();
+        return drivers;
+    }
+    public static List<Driver> getListOfDriversByAvailabilityAndPriceLessAndManager(
+            int price,DriverAvailability availability,User user) {
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        List<Driver> drivers;
+        if(availability.equals(DriverAvailability.ALL)) {
+            drivers = session.createQuery(
+                            "from Driver as d where d.price <=:price AND d.user.id=:id")
+                    .setParameter("price", price).setParameter("id",user.getId())
+                    .getResultList();
+        }
+        else {
+            drivers = session.createQuery(
+                            "from Driver as d where d.price <=:price and d.availability=: availability " +
+                                    "AND d.user.id=:id")
+                    .setParameter("price", price).setParameter("availability", availability)
+                    .setParameter("id",user.getId()).getResultList();
+        }
+        session.close();
+        return drivers;
+    }
+    public static List<Driver> getListOfDriversByAvailabilityAndCargoTypeAndManager(
+            CargoType type,DriverAvailability availability,User user) {
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        List<Driver> drivers;
+        if(availability.equals(DriverAvailability.ALL)) {
+            drivers = session.createQuery(
+                            "from Driver as d where d.truck.type =:type AND d.user.id=:id")
+                    .setParameter("type", type).setParameter("id",user.getId())
+                    .getResultList();
+        }
+        else {
+            drivers = session.createQuery(
+                            "from Driver as d where d.truck.type =:type and d.availability=: availability " +
+                                    "AND d.user.id=:id")
+                    .setParameter("type", type).setParameter("availability", availability)
+                    .setParameter("id",user.getId()).getResultList();
+        }
+        session.close();
+        return drivers;
+    }
 }

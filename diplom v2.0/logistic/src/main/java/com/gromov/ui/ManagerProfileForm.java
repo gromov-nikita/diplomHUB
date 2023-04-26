@@ -118,6 +118,7 @@ public class ManagerProfileForm {
         driverCombo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                requestCombo.removeAllItems();
             }
         });
     }

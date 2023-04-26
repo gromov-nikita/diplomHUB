@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TableDriverForm {
+public class TableDriverForManagerForm {
     private static JFrame tableDriverForm = new JFrame();
     private static User user;
     private JPanel tableDriverPanel;
@@ -35,7 +35,7 @@ public class TableDriverForm {
     private JButton excelExportButton;
     private JComboBox ratingCombo;
 
-    public TableDriverForm(User user) {
+    public TableDriverForManagerForm(User user) {
         tableDriverForm.setAlwaysOnTop(true);
         this.user = user;
         tableDriverForm.setContentPane(tableDriverPanel);
@@ -102,23 +102,31 @@ public class TableDriverForm {
             findBy = FindSystem.getFindSystemTypeByName((String)findCombo.getSelectedItem());
             switch (findBy) {
                 case NAME: {
-                    drivers = DriverDAO.getListOfDriversByAvailabilityAndName(findField.getText(),
-                            DriverAvailability.getDriverAvailabilityByName((String) availabilityCombo.getSelectedItem()));
+                    drivers = DriverDAO.getListOfDriversByAvailabilityAndNameAndManager(
+                            findField.getText(),
+                            DriverAvailability.getDriverAvailabilityByName(
+                                    (String) availabilityCombo.getSelectedItem()),user);
                     break;
                 }
                 case CARGO_TYPE: {
-                    drivers = DriverDAO.getListOfDriversByAvailabilityAndCargoType(CargoType.getCargoTypeByName(findField.getText()),
-                            DriverAvailability.getDriverAvailabilityByName((String) availabilityCombo.getSelectedItem()));
+                    drivers = DriverDAO.getListOfDriversByAvailabilityAndCargoTypeAndManager(
+                            CargoType.getCargoTypeByName(findField.getText()),
+                            DriverAvailability.getDriverAvailabilityByName(
+                                    (String) availabilityCombo.getSelectedItem()),user);
                     break;
                 }
                 case LESS_PRICE: {
-                    drivers = DriverDAO.getListOfDriversByAvailabilityAndPriceLess(Integer.valueOf((String) findField.getText()),
-                            DriverAvailability.getDriverAvailabilityByName((String) availabilityCombo.getSelectedItem()));
+                    drivers = DriverDAO.getListOfDriversByAvailabilityAndPriceLessAndManager(
+                            Integer.valueOf((String) findField.getText()),
+                            DriverAvailability.getDriverAvailabilityByName(
+                                    (String) availabilityCombo.getSelectedItem()),user);
                     break;
                 }
                 case MORE_MAX_WEIGHT: {
-                    drivers = DriverDAO.getListOfDriversByAvailabilityAndWeightMore(Integer.valueOf((String) findField.getText()),
-                            DriverAvailability.getDriverAvailabilityByName((String) availabilityCombo.getSelectedItem()));
+                    drivers = DriverDAO.getListOfDriversByAvailabilityAndWeightMoreAndManager(
+                            Integer.valueOf((String) findField.getText()),
+                            DriverAvailability.getDriverAvailabilityByName(
+                                    (String) availabilityCombo.getSelectedItem()),user);
                     break;
                 }
                 default: {
@@ -127,8 +135,9 @@ public class TableDriverForm {
             }
         }
         else {
-            drivers = DriverDAO.getListOfDriversByAvailability(
-                    DriverAvailability.getDriverAvailabilityByName((String)availabilityCombo.getSelectedItem()));
+            drivers = DriverDAO.getListOfDriversByAvailabilityAndManager(
+                    DriverAvailability.getDriverAvailabilityByName(
+                            (String)availabilityCombo.getSelectedItem()),user);
         }
         if(!(FindByRating.getRatingByName((String)ratingCombo.getSelectedItem()).equals(FindByRating.ALL))) {
             List<Driver> saveDrivers = new LinkedList<>();

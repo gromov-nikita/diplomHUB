@@ -42,6 +42,25 @@ public class OrderHistoryDAO {
         session.close();
         return orders;
     }
+    public static List<OrderHistory> getListOfOrdersByStatusAndManager(OrderStatus status, User user) {
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        List<OrderHistory> orders;
+        if(status.equals(OrderStatus.ALL)) {
+            orders = session.createQuery(
+                    "from OrderHistory as o where o.driver.user.id=:id").setParameter("id",user.getId())
+                    .getResultList();
+
+        }
+        else {
+            orders = session.createQuery(
+                    "from OrderHistory as o where o.status =:status AND o.driver.user.id=:id")
+                    .setParameter("status", status).setParameter("id",user.getId())
+                    .getResultList();
+        }
+        session.close();
+        return orders;
+    }
     public static List<OrderHistory> getListOfOrdersByUserAndStatus(OrderStatus status, User user) {
         Session session = DBConnection.getSessionFactory().openSession();
         Transaction transaction = session.getTransaction();
@@ -186,6 +205,157 @@ public class OrderHistoryDAO {
             orders = session.createQuery(
                             "from OrderHistory as o where o.request.cargo.type =:type and o.status =:status")
                     .setParameter("type", cargoType).setParameter("status", status).getResultList();
+        }
+        session.close();
+        return orders;
+    }
+
+    //**************************************************************************************************************************************
+    public static List<OrderHistory> getListOfOrdersByStatusAndCustomerEmailAndManager(OrderStatus status,
+                                                                                       String email,User user) {
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        List<OrderHistory> orders;
+        if(status.equals(OrderStatus.ALL)) {
+            orders = session.createQuery(
+                            "from OrderHistory as o where o.request.user.email =:email " +
+                                    "AND o.driver.user.id =:id")
+                    .setParameter("email", email).setParameter("id",user.getId()).getResultList();
+        }
+        else {
+            orders = session.createQuery(
+                            "from OrderHistory as o where o.request.user.email =:email and o.status =:status" +
+                                    "AND o.driver.user.id =:id")
+                    .setParameter("email", email).setParameter("status", status)
+                    .setParameter("id",user.getId()).getResultList();
+        }
+        session.close();
+        return orders;
+    }
+    public static List<OrderHistory> getListOfOrdersByStatusAndDriverNameAndManager(
+            OrderStatus status,String name,User user) {
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        List<OrderHistory> orders;
+        if(status.equals(OrderStatus.ALL)) {
+            orders = session.createQuery(
+                            "from OrderHistory as o where o.driver.name =:name AND o.driver.user.id =:id")
+                    .setParameter("name", name).setParameter("id",user.getId()).getResultList();
+        }
+        else {
+            orders = session.createQuery(
+                            "from OrderHistory as o where o.driver.name =:name" +
+                                    " and o.status =:status AND o.driver.user.id =:id")
+                    .setParameter("name", name).setParameter("status", status)
+                    .setParameter("id",user.getId()).getResultList();
+        }
+        session.close();
+        return orders;
+    }
+    public static List<OrderHistory> getListOfOrdersByStatusAndLessPriceAndManager(
+            OrderStatus status,int price,User user) {
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        List<OrderHistory> orders;
+        if(status.equals(OrderStatus.ALL)) {
+            orders = session.createQuery(
+                            "from OrderHistory as o where o.driver.price <=:price AND o.driver.user.id =:id")
+                    .setParameter("price", price).setParameter("id",user.getId()).getResultList();
+        }
+        else {
+            orders = session.createQuery(
+                            "from OrderHistory as o where o.driver.price <=:price and o.status =:status " +
+                                    "AND o.driver.user.id =:id")
+                    .setParameter("price", price).setParameter("status", status)
+                    .setParameter("id",user.getId()).getResultList();
+        }
+        session.close();
+        return orders;
+    }
+    public static List<OrderHistory> getListOfOrdersByStatusAndMaxWeightAndManager(
+            OrderStatus status,int maxWeight,User user) {
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        List<OrderHistory> orders;
+        if(status.equals(OrderStatus.ALL)) {
+            orders = session.createQuery(
+                            "from OrderHistory as o where o.driver.truck.weight =:weight " +
+                                    "AND o.driver.user.id =:id")
+                    .setParameter("weight", maxWeight).setParameter("id",user.getId()).getResultList();
+        }
+        else {
+            orders = session.createQuery(
+                            "from OrderHistory as o where o.driver.truck.weight =:weight" +
+                                    " and o.status =:status AND o.driver.user.id =:id")
+                    .setParameter("weight", maxWeight).setParameter("status", status)
+                    .setParameter("id",user.getId()).getResultList();
+        }
+        session.close();
+        return orders;
+    }
+
+    public static List<OrderHistory> getListOfOrdersByStatusAndCargoWeightAndManager(
+            OrderStatus status,int cargoWeight,User user) {
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        List<OrderHistory> orders;
+        if(status.equals(OrderStatus.ALL)) {
+            orders = session.createQuery(
+                            "from OrderHistory as o where o.request.cargo.weight =:weight " +
+                                    "AND o.driver.user.id =:id")
+                    .setParameter("weight", cargoWeight).setParameter("id",user.getId()).getResultList();
+        }
+        else {
+            orders = session.createQuery(
+                            "from OrderHistory as o where o.request.cargo.weight =:weight" +
+                                    " and o.status =:status AND o.driver.user.id =:id")
+                    .setParameter("weight", cargoWeight).setParameter("status", status)
+                    .setParameter("id",user.getId()).getResultList();
+        }
+        session.close();
+        return orders;
+    }
+    public static List<OrderHistory> getListOfOrdersByStatusAndCargoTypeAndManager(
+            OrderStatus status, CargoType cargoType,User user) {
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        List<OrderHistory> orders;
+        if(status.equals(OrderStatus.ALL)) {
+            orders = session.createQuery(
+                            "from OrderHistory as o where o.request.cargo.type =:type " +
+                                    "AND o.driver.user.id =:id")
+                    .setParameter("type", cargoType).setParameter("id",user.getId())
+                    .getResultList();
+        }
+        else {
+            orders = session.createQuery(
+                            "from OrderHistory as o where o.request.cargo.type =:type and o.status =:status " +
+                                    "AND o.driver.user.id =:id")
+                    .setParameter("type", cargoType).setParameter("status", status)
+                    .setParameter("id",user.getId()).getResultList();
+        }
+        session.close();
+        return orders;
+    }
+    public static List<OrderHistory> getListOfOrdersByUserAndStatusAndManager(OrderStatus status, User user,
+                                                                              User manager) {
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        List<OrderHistory> orders;
+        if(status.equals(OrderStatus.ALL)) {
+            orders = session.createQuery(
+                            "from OrderHistory as o where o.request.user.id = :id " +
+                                    "AND o.driver.user.id =:managerId")
+                    .setParameter("id",user.getId()).setParameter("managerId",manager.getId())
+                    .getResultList();
+
+        }
+        else {
+            orders = session.createQuery(
+                            "from OrderHistory as o where o.status =:status and o.request.user.id =: id " +
+                                    "AND o.driver.user.id =:managerId")
+                    .setParameter("status", status).setParameter("id",user.getId())
+                    .setParameter("managerId",manager.getId()).getResultList();
         }
         session.close();
         return orders;
