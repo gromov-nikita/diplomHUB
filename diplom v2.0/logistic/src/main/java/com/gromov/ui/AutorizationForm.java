@@ -41,8 +41,11 @@ public class AutorizationForm {
                     if(user.getType().equals(UserType.CUSTOMER)) {
                         new CustomerProfileForm(user);
                     }
-                    else {
+                    else if (user.getType().equals(UserType.MANAGER)) {
                         new ManagerProfileForm(user);
+                    }
+                    else if (user.getType().equals(UserType.ADMIN)) {
+                        new AdminProfileForm(user);
                     }
                     autorizationForm.dispose();
                 }

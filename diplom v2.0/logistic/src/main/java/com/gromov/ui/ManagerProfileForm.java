@@ -13,6 +13,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 public class ManagerProfileForm {
@@ -51,21 +53,19 @@ public class ManagerProfileForm {
         fillRequestComboByTruck();
         driverCombo.setMaximumRowCount(10);
 
-
+        managerProfileForm.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                swapWorkStatus(requests);
+                super.windowClosing(e);
+            }
+        });
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                swapWorkStatus(requests);
                 new ChooseForm();
                 managerProfileForm.dispose();
-            }
-        });
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Request request = (Request) requestCombo.getSelectedItem();
-                request.setStatus(RequestStatus.CANCELED);
-                RequestDAO.updateRequest(request);
-                fillRequestCombo();
             }
         });
         acceptButton.addActionListener(new ActionListener() {
@@ -80,23 +80,14 @@ public class ManagerProfileForm {
                 driver.setAvailability(DriverAvailability.NOT_AVAILABLE);
                 RequestDAO.updateRequest(request);
                 DriverDAO.updateStatus(driver);
-                fillRequestCombo();
+                fillDriverComboByAvailabilityAndUser();
+                fillRequestComboByTruck();
             }
         });
-/*
-        requestCombo.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                fillDriverComboByCargo();
-            }
-
-
-        });
-*/
         orderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                swapWorkStatus(requests);
                 new ManagerOrderForm(user);
                 managerProfileForm.dispose();
             }
@@ -104,6 +95,7 @@ public class ManagerProfileForm {
         requestTableButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                swapWorkStatus(requests);
                 new TableRequestForm(user);
                 managerProfileForm.dispose();
             }
@@ -111,18 +103,12 @@ public class ManagerProfileForm {
         getRequests.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                swapWorkStatus(requests);
                 fillRequestComboByTruck();
-            }
-        });
-        driverCombo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                requestCombo.removeAllItems();
             }
         });
     }
     private void fillRequestCombo() {
+        swapWorkStatus(requests);
         requestCombo.removeAllItems();
         for(Request x : RequestDAO.getListOfRequestsByStatus(RequestStatus.IN_PROCESS)) {
             requestCombo.addItem(x);
@@ -140,6 +126,7 @@ public class ManagerProfileForm {
 
     }
     private void fillRequestComboByTruck() {
+        swapWorkStatus(requests);
         requestCombo.removeAllItems();
         Driver driver = (Driver)driverCombo.getSelectedItem();
         if(driver != null) {

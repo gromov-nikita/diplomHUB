@@ -29,4 +29,13 @@ public class UserDAO {
         session.close();
         return i;
     }
+    public static User forgotPassword(String email) {
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        User user = (User) session.createQuery(
+                        "from User as u where u.email = :email")
+                .setParameter("email",email).getSingleResult();
+        session.close();
+        return user;
+    }
 }

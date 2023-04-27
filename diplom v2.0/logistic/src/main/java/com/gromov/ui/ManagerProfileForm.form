@@ -43,12 +43,6 @@
               <text value="Захватить заявки"/>
             </properties>
           </component>
-          <component id="dbe83" class="javax.swing.JButton" binding="cancelButton">
-            <constraints/>
-            <properties>
-              <text value="Отклонить заявку"/>
-            </properties>
-          </component>
           <component id="da533" class="javax.swing.JButton" binding="acceptButton">
             <constraints/>
             <properties>
