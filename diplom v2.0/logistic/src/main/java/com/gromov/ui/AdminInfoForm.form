@@ -1,13 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.gromov.ui.AdminInfoForm">
-  <grid id="27dc6" row-count="1" column-count="1" layout-manager="FlowLayout">
-    <margin top="0" left="0" bottom="0" right="0"/>
+  <grid id="27dc6" binding="adminInfoPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
     <constraints>
       <xy x="20" y="20" width="500" height="400"/>
-      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
     </constraints>
     <properties/>
     <border type="none"/>
-    <children/>
+    <children>
+      <grid id="e430e" binding="buttonPanel" layout-manager="GridLayoutManager" row-count="6" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="90afb" class="javax.swing.JButton" binding="requestButton">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Заявки"/>
+            </properties>
+          </component>
+          <component id="6fdd7" class="javax.swing.JButton" binding="orderButton">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Заказы"/>
+            </properties>
+          </component>
+          <component id="c6edd" class="javax.swing.JButton" binding="driverButton">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Водители"/>
+            </properties>
+          </component>
+          <component id="ab6ec" class="javax.swing.JButton" binding="customerButton">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Клиенты"/>
+            </properties>
+          </component>
+          <component id="949c1" class="javax.swing.JButton" binding="ManagerButton">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Менеджеры"/>
+            </properties>
+          </component>
+          <component id="b0076" class="javax.swing.JButton" binding="backButton">
+            <constraints>
+              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Назад"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
   </grid>
 </form>

@@ -210,8 +210,7 @@ public class OrderHistoryDAO {
         return orders;
     }
 
-    //**************************************************************************************************************************************
-    public static List<OrderHistory> getListOfOrdersByStatusAndCustomerEmailAndManager(OrderStatus status,
+   public static List<OrderHistory> getListOfOrdersByStatusAndCustomerEmailAndManager(OrderStatus status,
                                                                                        String email,User user) {
         Session session = DBConnection.getSessionFactory().openSession();
         Transaction transaction = session.getTransaction();

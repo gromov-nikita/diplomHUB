@@ -28,7 +28,7 @@ public class AdminRequestControlForm {
         adminRequestControlForm.setAlwaysOnTop(true);
         this.user = user;
         adminRequestControlForm.setContentPane(adminRequestControlPanel);
-        adminRequestControlForm.setTitle("Контроль заявок");
+        adminRequestControlForm.setTitle("Управление запросами");
         adminRequestControlForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         adminRequestControlForm.setVisible(true);
         adminRequestControlForm.setResizable(false);

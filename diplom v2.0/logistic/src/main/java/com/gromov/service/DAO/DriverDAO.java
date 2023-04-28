@@ -154,8 +154,7 @@ public class DriverDAO {
         session.close();
         return drivers;
     }
-    //*****************************************************************************************************************************
-    public static List<Driver> getListOfDriversByNameAndManager(String name,User user) {
+   public static List<Driver> getListOfDriversByNameAndManager(String name,User user) {
         Session session = DBConnection.getSessionFactory().openSession();
         Transaction transaction = session.getTransaction();
         List<Driver> drivers = session.createQuery(

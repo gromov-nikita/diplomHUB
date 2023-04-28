@@ -48,6 +48,7 @@ public class AdminProfileForm {
         getInfoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                new AdminInfoForm(user);
                 adminProfileForm.dispose();
             }
         });
