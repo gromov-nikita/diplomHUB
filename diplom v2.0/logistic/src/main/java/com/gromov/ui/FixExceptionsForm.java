@@ -26,7 +26,7 @@ public class FixExceptionsForm {
         fixExceptionsForm.setResizable(false);
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension dimension = toolkit.getScreenSize();
-        fixExceptionsForm.setBounds(dimension.width/2-150,dimension.height/2-250,300,500);
+        fixExceptionsForm.setBounds(dimension.width/2-150,dimension.height/2-70,300,140);
 
         backButton.addActionListener(new ActionListener() {
             @Override

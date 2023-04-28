@@ -30,7 +30,7 @@ public class AdminProfileForm {
         adminProfileForm.setResizable(false);
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension dimension = toolkit.getScreenSize();
-        adminProfileForm.setBounds(dimension.width/2-150,dimension.height/2-250,300,500);
+        adminProfileForm.setBounds(dimension.width/2-150,dimension.height/2-115,300,230);
         addManagerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

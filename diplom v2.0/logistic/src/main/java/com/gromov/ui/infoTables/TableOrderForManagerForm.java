@@ -1,4 +1,4 @@
-package com.gromov.ui.info;
+package com.gromov.ui.infoTables;
 
 import com.gromov.entity.OrderHistory;
 import com.gromov.entity.User;

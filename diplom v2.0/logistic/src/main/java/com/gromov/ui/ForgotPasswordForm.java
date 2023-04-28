@@ -32,7 +32,7 @@ public class ForgotPasswordForm {
         forgotPasswordForm.setResizable(false);
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension dimension = toolkit.getScreenSize();
-        forgotPasswordForm.setBounds(dimension.width / 2 - 250, dimension.height / 2 - 150, 500, 300);
+        forgotPasswordForm.setBounds(dimension.width / 2 - 250, dimension.height / 2 - 55, 500, 110);
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

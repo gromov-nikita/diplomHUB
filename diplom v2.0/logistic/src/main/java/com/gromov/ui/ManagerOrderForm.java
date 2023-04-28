@@ -5,8 +5,8 @@ import com.gromov.entity.enums.DriverAvailability;
 import com.gromov.entity.enums.OrderStatus;
 import com.gromov.service.DAO.DriverDAO;
 import com.gromov.service.DAO.OrderHistoryDAO;
-import com.gromov.ui.info.TableDriverForManagerForm;
-import com.gromov.ui.info.TableOrderForManagerForm;
+import com.gromov.ui.infoTables.TableDriverForManagerForm;
+import com.gromov.ui.infoTables.TableOrderForManagerForm;
 
 import javax.swing.*;
 import java.awt.*;

@@ -8,7 +8,7 @@ import com.gromov.entity.enums.WorkStatus;
 import com.gromov.service.DAO.DriverDAO;
 import com.gromov.service.DAO.OrderHistoryDAO;
 import com.gromov.service.DAO.RequestDAO;
-import com.gromov.ui.info.TableRequestForm;
+import com.gromov.ui.infoTables.TableRequestForm;
 
 import javax.swing.*;
 import java.awt.*;
