@@ -1,5 +1,8 @@
 package com.gromov.entity.enums;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public enum CargoType {
     LIQUID("Жидкий"),
     SOLID("Твердый");
@@ -22,5 +25,12 @@ public enum CargoType {
                 return null;
             }
         }
+    }
+    public static List<String> getListOfNames() {
+        List<String> list = new LinkedList<>();
+        for(CargoType x : CargoType.values()) {
+            list.add(x.getName());
+        }
+        return list;
     }
 }

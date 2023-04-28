@@ -45,7 +45,7 @@ public class ForgotPasswordForm {
             public void actionPerformed(ActionEvent e) {
                 User staff = null;
                 try {
-                    staff = UserDAO.forgotPassword(emailField.getText());
+                    staff = UserDAO.getUserByEmail(emailField.getText());
                     if (staff.getType().equals(UserType.CUSTOMER)) {
                         JOptionPane.showMessageDialog(forgotPasswordForm,
                                 "Несанкионированный доступ к информации!!!!!"

@@ -1,6 +1,7 @@
 package com.gromov.ui;
 
 import com.gromov.entity.User;
+import com.gromov.ui.registration.ManagerRegistrationForm;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,12 +34,14 @@ public class AdminProfileForm {
         addManagerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                new ManagerRegistrationForm(user);
                 adminProfileForm.dispose();
             }
         });
         addDriverButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                new DriverCreatorForm(user);
                 adminProfileForm.dispose();
             }
         });

@@ -1,5 +1,8 @@
 package com.gromov.ui;
 
+import com.gromov.ui.registration.CustomerRegistrationForm;
+import com.gromov.ui.registration.RegistrationForm;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,7 +25,7 @@ public class ChooseForm  {
         registrationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new RegistrationForm();
+                new CustomerRegistrationForm();
                 chooseForm.dispose();
             }
         });

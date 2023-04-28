@@ -8,9 +8,11 @@ import com.gromov.entity.enums.CargoType;
 import com.gromov.entity.enums.DriverAvailability;
 import com.gromov.entity.enums.RequestStatus;
 import com.gromov.service.DBConnection.DBConnection;
+import jakarta.persistence.NoResultException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -269,5 +271,17 @@ public class DriverDAO {
         }
         session.close();
         return drivers;
+    }
+    public static int createDriver(Driver driver) {
+        Session session = null;
+        int i = -386;
+        session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        session.beginTransaction();
+        TruckDAO.createTruck(driver.getTruck());
+        i = (Integer) session.save(driver);
+        transaction.commit();
+        session.close();
+        return i;
     }
 }
