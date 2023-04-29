@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.gromov.ui.CommentManagerForm">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.gromov.ui.CommentForm">
   <grid id="27dc6" binding="comentPanel" layout-manager="FormLayout">
     <rowspec value="center:d:noGrow"/>
     <rowspec value="top:4dlu:noGrow"/>
@@ -17,13 +17,13 @@
     <properties/>
     <border type="none"/>
     <children>
-      <component id="42570" class="javax.swing.JLabel" binding="driverLabel">
+      <component id="42570" class="javax.swing.JLabel" binding="label">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
           <forms top="5" left="5" bottom="0" right="0"/>
         </constraints>
         <properties>
-          <text value="Водители:"/>
+          <text value=""/>
         </properties>
       </component>
       <component id="3de8a" class="javax.swing.JLabel" binding="orderLabel">
@@ -64,7 +64,7 @@
           </component>
         </children>
       </scrollpane>
-      <component id="5edc6" class="javax.swing.JComboBox" binding="driverCombo">
+      <component id="5edc6" class="javax.swing.JComboBox" binding="combo">
         <constraints>
           <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
           <forms top="5" left="0" bottom="0" right="5"/>

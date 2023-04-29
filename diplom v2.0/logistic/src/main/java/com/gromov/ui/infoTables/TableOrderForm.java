@@ -260,7 +260,7 @@ public class TableOrderForm {
     private void createOrderTable() {
         List<OrderHistory> orders = null;
         if (user.getType().equals(UserType.MANAGER)) {
-            orders = OrderHistoryDAO.getListOfOrdersByUser(user);
+            orders = OrderHistoryDAO.getListOfOrdersByManager(user);
         }
         else if(user.getType().equals(UserType.ADMIN)) {
             orders = OrderHistoryDAO.getListOfOrders();

@@ -108,7 +108,7 @@ public class TableManagerForm {
             rating = 0;
             driverAmount = x.getDrivers().size();
             rating = getManagerRating(x);
-            if(((int)rating) != 0) {
+            if(((int)rating) != -1) {
                 model.insertRow(model.getRowCount(), new String[]{
                         x.getName(), x.getEmail(), driverAmount+"",rating+""
                 });
@@ -224,7 +224,7 @@ public class TableManagerForm {
         for(User x : users) {
             int driverAmount = x.getDrivers().size();
             rating = getManagerRating(x);
-            if(!(((int)rating+1) == 0)) {
+            if(((int)rating) != -1) {
                 model.insertRow(model.getRowCount(), new String[]{
                         x.getName(), x.getEmail(), driverAmount+"",rating+""
                 });

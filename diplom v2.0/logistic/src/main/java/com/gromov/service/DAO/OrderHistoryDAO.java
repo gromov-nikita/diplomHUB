@@ -95,7 +95,7 @@ public class OrderHistoryDAO {
         session.close();
         return orders;
     }
-    public static List<OrderHistory> getListOfOrdersByUser(User user) {
+    public static List<OrderHistory> getListOfOrdersByManager(User user) {
         Session session = DBConnection.getSessionFactory().openSession();
         Transaction transaction = session.getTransaction();
         List<OrderHistory> orders = session.createQuery(

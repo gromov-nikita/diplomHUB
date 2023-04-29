@@ -118,7 +118,7 @@ public class ManagerOrderForm {
         getCommentsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new CommentManagerForm(user);
+                new CommentForm(user);
                 managerOrderForm.dispose();
             }
         });

@@ -21,6 +21,7 @@ public class AdminInfoForm {
     private JButton orderButton;
     private JButton ManagerButton;
     private JButton backButton;
+    private JButton commentButton;
 
     public AdminInfoForm(User user) {
         adminInfoForm.setAlwaysOnTop(true);
@@ -65,6 +66,13 @@ public class AdminInfoForm {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new AdminProfileForm(user);
+                adminInfoForm.dispose();
+            }
+        });
+        commentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CommentForm(user);
                 adminInfoForm.dispose();
             }
         });
