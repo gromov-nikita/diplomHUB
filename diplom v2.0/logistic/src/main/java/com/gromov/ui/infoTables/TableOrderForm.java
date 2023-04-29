@@ -5,8 +5,11 @@ import com.gromov.entity.User;
 import com.gromov.entity.enums.CargoType;
 import com.gromov.entity.enums.FindSystem;
 import com.gromov.entity.enums.OrderStatus;
+import com.gromov.entity.enums.UserType;
 import com.gromov.service.DAO.OrderHistoryDAO;
 import com.gromov.service.dataExport.ExcelAdapter;
+import com.gromov.ui.AdminInfoForm;
+import com.gromov.ui.AdminProfileForm;
 import com.gromov.ui.ManagerOrderForm;
 
 import javax.swing.*;
@@ -18,7 +21,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TableOrderForManagerForm {
+public class TableOrderForm {
     private static JFrame tableOrderForm = new JFrame();
     private static User user;
     private JPanel tableOrderPanel;
@@ -39,7 +42,7 @@ public class TableOrderForManagerForm {
     private JButton excelExportButton;
     private JComboBox findCombo;
 
-    public TableOrderForManagerForm(User user) {
+    public TableOrderForm(User user) {
         tableOrderForm.setAlwaysOnTop(true);
         this.user = user;
         tableOrderForm.setContentPane(tableOrderPanel);
@@ -49,7 +52,7 @@ public class TableOrderForManagerForm {
         tableOrderForm.setResizable(false);
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension dimension = toolkit.getScreenSize();
-        tableOrderForm.setBounds(dimension.width/2-(dimension.width-100)/2,dimension.height/2-200,dimension.width,400);
+        tableOrderForm.setBounds(0,dimension.height/2-200,dimension.width,400);
         orderStatusCombo.setMaximumRowCount(5);
         underloadCombo.setMaximumRowCount(5);
         findCombo.setMaximumRowCount(5);
@@ -72,7 +75,12 @@ public class TableOrderForManagerForm {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ManagerOrderForm(user);
+                if (user.getType().equals(UserType.MANAGER)) {
+                    new ManagerOrderForm(user);
+                }
+                else if (user.getType().equals(UserType.ADMIN)) {
+                    new AdminInfoForm(user);
+                }
                 tableOrderForm.dispose();
             }
         });
@@ -101,55 +109,107 @@ public class TableOrderForManagerForm {
         });
     }
     private void createOrderTableBy() {
-        List<OrderHistory> orders;
+        List<OrderHistory> orders = null;
         FindSystem findBy;
-        if (!findField.getText().isEmpty()) {
-            findBy = FindSystem.getFindSystemTypeByName((String) findCombo.getSelectedItem());
-            switch (findBy) {
-                case CUSTOMER_EMAIL: {
-                    orders = OrderHistoryDAO.getListOfOrdersByStatusAndCustomerEmailAndManager(
-                            OrderStatus.getOrderStatusByName((String)orderStatusCombo.getSelectedItem()),
-                            findField.getText(),user);
-                    break;
+        if (user.getType().equals(UserType.MANAGER)) {
+            if (!findField.getText().isEmpty()) {
+                findBy = FindSystem.getFindSystemTypeByName((String) findCombo.getSelectedItem());
+                switch (findBy) {
+                    case CUSTOMER_EMAIL: {
+                        orders = OrderHistoryDAO.getListOfOrdersByStatusAndCustomerEmailAndManager(
+                                OrderStatus.getOrderStatusByName((String) orderStatusCombo.getSelectedItem()),
+                                findField.getText(), user);
+                        break;
+                    }
+                    case DRIVER_NAME: {
+                        orders = OrderHistoryDAO.getListOfOrdersByStatusAndDriverNameAndManager(
+                                OrderStatus.getOrderStatusByName((String) orderStatusCombo.getSelectedItem()),
+                                findField.getText(), user);
+                        break;
+                    }
+                    case LESS_PRICE: {
+                        orders = OrderHistoryDAO.getListOfOrdersByStatusAndLessPriceAndManager(
+                                OrderStatus.getOrderStatusByName((String) orderStatusCombo.getSelectedItem()),
+                                Integer.valueOf(findField.getText()), user);
+                        break;
+                    }
+                    case MAX_WEIGHT: {
+                        orders = OrderHistoryDAO.getListOfOrdersByStatusAndMaxWeightAndManager(
+                                OrderStatus.getOrderStatusByName((String) orderStatusCombo.getSelectedItem()),
+                                Integer.valueOf(findField.getText()), user);
+                        break;
+                    }
+                    case CARGO_WEIGHT: {
+                        orders = OrderHistoryDAO.getListOfOrdersByStatusAndCargoWeightAndManager(
+                                OrderStatus.getOrderStatusByName((String) orderStatusCombo.getSelectedItem()),
+                                Integer.valueOf(findField.getText()), user);
+                        break;
+                    }
+                    case CARGO_TYPE: {
+                        orders = OrderHistoryDAO.getListOfOrdersByStatusAndCargoTypeAndManager(
+                                OrderStatus.getOrderStatusByName((String) orderStatusCombo.getSelectedItem()),
+                                CargoType.getCargoTypeByName(findField.getText()), user);
+                        break;
+                    }
+                    default: {
+                        orders = null;
+                    }
                 }
-                case DRIVER_NAME: {
-                    orders = OrderHistoryDAO.getListOfOrdersByStatusAndDriverNameAndManager(
-                            OrderStatus.getOrderStatusByName((String)orderStatusCombo.getSelectedItem()),
-                            findField.getText(),user);
-                    break;
-                }
-                case LESS_PRICE: {
-                    orders = OrderHistoryDAO.getListOfOrdersByStatusAndLessPriceAndManager(
-                            OrderStatus.getOrderStatusByName((String)orderStatusCombo.getSelectedItem()),
-                            Integer.valueOf(findField.getText()),user);
-                    break;
-                }
-                case MAX_WEIGHT: {
-                    orders = OrderHistoryDAO.getListOfOrdersByStatusAndMaxWeightAndManager(
-                            OrderStatus.getOrderStatusByName((String)orderStatusCombo.getSelectedItem()),
-                            Integer.valueOf(findField.getText()),user);
-                    break;
-                }
-                case CARGO_WEIGHT: {
-                    orders = OrderHistoryDAO.getListOfOrdersByStatusAndCargoWeightAndManager(
-                            OrderStatus.getOrderStatusByName((String)orderStatusCombo.getSelectedItem()),
-                            Integer.valueOf(findField.getText()),user);
-                    break;
-                }
-                case CARGO_TYPE: {
-                    orders = OrderHistoryDAO.getListOfOrdersByStatusAndCargoTypeAndManager(
-                            OrderStatus.getOrderStatusByName((String)orderStatusCombo.getSelectedItem()),
-                            CargoType.getCargoTypeByName(findField.getText()),user);
-                    break;
-                }
-                default: {
-                    orders = null;
-                }
-            }
-        } else {
-            orders = OrderHistoryDAO.getListOfOrdersByStatusAndManager(OrderStatus.getOrderStatusByName(
-                    (String)orderStatusCombo.getSelectedItem()),user);
+            } else {
+                orders = OrderHistoryDAO.getListOfOrdersByStatusAndManager(OrderStatus.getOrderStatusByName(
+                        (String) orderStatusCombo.getSelectedItem()), user);
 
+            }
+        }
+        else if (user.getType().equals(UserType.ADMIN)) {
+            if (!findField.getText().isEmpty()) {
+                findBy = FindSystem.getFindSystemTypeByName((String) findCombo.getSelectedItem());
+                switch (findBy) {
+                    case CUSTOMER_EMAIL: {
+                        orders = OrderHistoryDAO.getListOfOrdersByStatusAndCustomerEmail(
+                                OrderStatus.getOrderStatusByName((String) orderStatusCombo.getSelectedItem()),
+                                findField.getText());
+                        break;
+                    }
+                    case DRIVER_NAME: {
+                        orders = OrderHistoryDAO.getListOfOrdersByStatusAndDriverName(
+                                OrderStatus.getOrderStatusByName((String) orderStatusCombo.getSelectedItem()),
+                                findField.getText());
+                        break;
+                    }
+                    case LESS_PRICE: {
+                        orders = OrderHistoryDAO.getListOfOrdersByStatusAndLessPrice(
+                                OrderStatus.getOrderStatusByName((String) orderStatusCombo.getSelectedItem()),
+                                Integer.valueOf(findField.getText()));
+                        break;
+                    }
+                    case MAX_WEIGHT: {
+                        orders = OrderHistoryDAO.getListOfOrdersByStatusAndMaxWeight(
+                                OrderStatus.getOrderStatusByName((String) orderStatusCombo.getSelectedItem()),
+                                Integer.valueOf(findField.getText()));
+                        break;
+                    }
+                    case CARGO_WEIGHT: {
+                        orders = OrderHistoryDAO.getListOfOrdersByStatusAndCargoWeight(
+                                OrderStatus.getOrderStatusByName((String) orderStatusCombo.getSelectedItem()),
+                                Integer.valueOf(findField.getText()));
+                        break;
+                    }
+                    case CARGO_TYPE: {
+                        orders = OrderHistoryDAO.getListOfOrdersByStatusAndCargoType(
+                                OrderStatus.getOrderStatusByName((String) orderStatusCombo.getSelectedItem()),
+                                CargoType.getCargoTypeByName(findField.getText()));
+                        break;
+                    }
+                    default: {
+                        orders = null;
+                    }
+                }
+            } else {
+                orders = OrderHistoryDAO.getListOfOrdersByStatus(OrderStatus.getOrderStatusByName(
+                        (String) orderStatusCombo.getSelectedItem()));
+
+            }
         }
         List<OrderHistory> saveOrders = new LinkedList<>();
         FindSystem underload = FindSystem.getFindSystemTypeByName((String)underloadCombo.getSelectedItem());
@@ -198,7 +258,13 @@ public class TableOrderForManagerForm {
 
     }
     private void createOrderTable() {
-        List<OrderHistory> orders = OrderHistoryDAO.getListOfOrders();
+        List<OrderHistory> orders = null;
+        if (user.getType().equals(UserType.MANAGER)) {
+            orders = OrderHistoryDAO.getListOfOrdersByUser(user);
+        }
+        else if(user.getType().equals(UserType.ADMIN)) {
+            orders = OrderHistoryDAO.getListOfOrders();
+        }
         DefaultTableModel model = new DefaultTableModel(null,new String[] {
                 "Email заказчика","Ф.И.О. заказчика","Дата отправки",
                 "Дата доставки","Откуда","Куда","Название груза",

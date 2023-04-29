@@ -95,6 +95,15 @@ public class OrderHistoryDAO {
         session.close();
         return orders;
     }
+    public static List<OrderHistory> getListOfOrdersByUser(User user) {
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        List<OrderHistory> orders = session.createQuery(
+                "from OrderHistory as o where o.driver.user.id=:id")
+                .setParameter("id",user.getId()).getResultList();
+        session.close();
+        return orders;
+    }
     public static List<OrderHistory> getListOfOrdersByDriver(Driver driver) {
         Session session = DBConnection.getSessionFactory().openSession();
         Transaction transaction = session.getTransaction();

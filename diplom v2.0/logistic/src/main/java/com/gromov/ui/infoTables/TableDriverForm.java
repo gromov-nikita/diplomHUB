@@ -5,6 +5,8 @@ import com.gromov.entity.User;
 import com.gromov.entity.enums.*;
 import com.gromov.service.DAO.DriverDAO;
 import com.gromov.service.dataExport.ExcelAdapter;
+import com.gromov.ui.AdminInfoForm;
+import com.gromov.ui.AdminProfileForm;
 import com.gromov.ui.ManagerOrderForm;
 
 import javax.swing.*;
@@ -16,7 +18,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TableDriverForManagerForm {
+public class TableDriverForm {
     private static JFrame tableDriverForm = new JFrame();
     private static User user;
     private JPanel tableDriverPanel;
@@ -36,7 +38,7 @@ public class TableDriverForManagerForm {
     private JButton excelExportButton;
     private JComboBox ratingCombo;
 
-    public TableDriverForManagerForm(User user) {
+    public TableDriverForm(User user) {
         tableDriverForm.setAlwaysOnTop(true);
         this.user = user;
         tableDriverForm.setContentPane(tableDriverPanel);
@@ -69,9 +71,14 @@ public class TableDriverForManagerForm {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ManagerOrderForm(user);
-                tableDriverForm.dispose();
-            }
+                    if (user.getType().equals(UserType.MANAGER)) {
+                        new ManagerOrderForm(user);
+                    }
+                    else if (user.getType().equals(UserType.ADMIN)) {
+                        new AdminInfoForm(user);
+                    }
+                    tableDriverForm.dispose();
+                }
         });
         updateTableButton.addActionListener(new ActionListener() {
             @Override
@@ -96,49 +103,91 @@ public class TableDriverForManagerForm {
         });
     }
     private void createDriverTableBy() {
-        List<Driver> drivers;
+        List<Driver> drivers = null;
         FindSystem findBy;
-
-        if(!findField.getText().isEmpty()) {
-            findBy = FindSystem.getFindSystemTypeByName((String)findCombo.getSelectedItem());
-            switch (findBy) {
-                case NAME: {
-                    drivers = DriverDAO.getListOfDriversByAvailabilityAndNameAndManager(
-                            findField.getText(),
-                            DriverAvailability.getDriverAvailabilityByName(
-                                    (String) availabilityCombo.getSelectedItem()),user);
-                    break;
+        if(user.getType().equals(UserType.MANAGER)) {
+            if (!findField.getText().isEmpty()) {
+                findBy = FindSystem.getFindSystemTypeByName((String) findCombo.getSelectedItem());
+                switch (findBy) {
+                    case NAME: {
+                        drivers = DriverDAO.getListOfDriversByAvailabilityAndNameAndManager(
+                                findField.getText(),
+                                DriverAvailability.getDriverAvailabilityByName(
+                                        (String) availabilityCombo.getSelectedItem()), user);
+                        break;
+                    }
+                    case CARGO_TYPE: {
+                        drivers = DriverDAO.getListOfDriversByAvailabilityAndCargoTypeAndManager(
+                                CargoType.getCargoTypeByName(findField.getText()),
+                                DriverAvailability.getDriverAvailabilityByName(
+                                        (String) availabilityCombo.getSelectedItem()), user);
+                        break;
+                    }
+                    case LESS_PRICE: {
+                        drivers = DriverDAO.getListOfDriversByAvailabilityAndPriceLessAndManager(
+                                Integer.valueOf((String) findField.getText()),
+                                DriverAvailability.getDriverAvailabilityByName(
+                                        (String) availabilityCombo.getSelectedItem()), user);
+                        break;
+                    }
+                    case MORE_MAX_WEIGHT: {
+                        drivers = DriverDAO.getListOfDriversByAvailabilityAndWeightMoreAndManager(
+                                Integer.valueOf((String) findField.getText()),
+                                DriverAvailability.getDriverAvailabilityByName(
+                                        (String) availabilityCombo.getSelectedItem()), user);
+                        break;
+                    }
+                    default: {
+                        drivers = null;
+                    }
                 }
-                case CARGO_TYPE: {
-                    drivers = DriverDAO.getListOfDriversByAvailabilityAndCargoTypeAndManager(
-                            CargoType.getCargoTypeByName(findField.getText()),
-                            DriverAvailability.getDriverAvailabilityByName(
-                                    (String) availabilityCombo.getSelectedItem()),user);
-                    break;
-                }
-                case LESS_PRICE: {
-                    drivers = DriverDAO.getListOfDriversByAvailabilityAndPriceLessAndManager(
-                            Integer.valueOf((String) findField.getText()),
-                            DriverAvailability.getDriverAvailabilityByName(
-                                    (String) availabilityCombo.getSelectedItem()),user);
-                    break;
-                }
-                case MORE_MAX_WEIGHT: {
-                    drivers = DriverDAO.getListOfDriversByAvailabilityAndWeightMoreAndManager(
-                            Integer.valueOf((String) findField.getText()),
-                            DriverAvailability.getDriverAvailabilityByName(
-                                    (String) availabilityCombo.getSelectedItem()),user);
-                    break;
-                }
-                default: {
-                    drivers = null;
-                }
+            } else {
+                drivers = DriverDAO.getListOfDriversByAvailabilityAndManager(
+                        DriverAvailability.getDriverAvailabilityByName(
+                                (String) availabilityCombo.getSelectedItem()), user);
             }
         }
-        else {
-            drivers = DriverDAO.getListOfDriversByAvailabilityAndManager(
-                    DriverAvailability.getDriverAvailabilityByName(
-                            (String)availabilityCombo.getSelectedItem()),user);
+        else if (user.getType().equals(UserType.ADMIN)) {
+            if (!findField.getText().isEmpty()) {
+                findBy = FindSystem.getFindSystemTypeByName((String) findCombo.getSelectedItem());
+                switch (findBy) {
+                    case NAME: {
+                        drivers = DriverDAO.getListOfDriversByAvailabilityAndName(
+                                findField.getText(),
+                                DriverAvailability.getDriverAvailabilityByName(
+                                        (String) availabilityCombo.getSelectedItem()));
+                        break;
+                    }
+                    case CARGO_TYPE: {
+                        drivers = DriverDAO.getListOfDriversByAvailabilityAndCargoType(
+                                CargoType.getCargoTypeByName(findField.getText()),
+                                DriverAvailability.getDriverAvailabilityByName(
+                                        (String) availabilityCombo.getSelectedItem()));
+                        break;
+                    }
+                    case LESS_PRICE: {
+                        drivers = DriverDAO.getListOfDriversByAvailabilityAndPriceLess(
+                                Integer.valueOf((String) findField.getText()),
+                                DriverAvailability.getDriverAvailabilityByName(
+                                        (String) availabilityCombo.getSelectedItem()));
+                        break;
+                    }
+                    case MORE_MAX_WEIGHT: {
+                        drivers = DriverDAO.getListOfDriversByAvailabilityAndWeightMore(
+                                Integer.valueOf((String) findField.getText()),
+                                DriverAvailability.getDriverAvailabilityByName(
+                                        (String) availabilityCombo.getSelectedItem()));
+                        break;
+                    }
+                    default: {
+                        drivers = null;
+                    }
+                }
+            } else {
+                drivers = DriverDAO.getListOfDriversByAvailability(
+                        DriverAvailability.getDriverAvailabilityByName(
+                                (String) availabilityCombo.getSelectedItem()));
+            }
         }
         if(!(FindByRating.getRatingByName((String)ratingCombo.getSelectedItem()).equals(FindByRating.ALL))) {
             List<Driver> saveDrivers = new LinkedList<>();
@@ -228,7 +277,13 @@ public class TableDriverForManagerForm {
         driverTable.setModel(model);
     }
     private void createDriverTable() {
-        List<Driver> drivers = DriverDAO.getListOfDrivers();
+        List<Driver> drivers = null;
+        if(user.getType().equals(UserType.MANAGER)) {
+            drivers = DriverDAO.getListOfDriversByUser(user);
+        }
+        else if(user.getType().equals(UserType.ADMIN)) {
+            drivers = DriverDAO.getListOfDrivers();
+        }
         DefaultTableModel model = new DefaultTableModel(null,new String[] {
                 "Ф.И.О.","Цена(BYN/км)","Грузоподъемность(кг)","Тип груза","Средняя оценка","Статус"
         }) {

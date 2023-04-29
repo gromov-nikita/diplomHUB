@@ -27,7 +27,7 @@ public class User {
     private UserType type;
     @OneToMany(mappedBy = "user")
     private Collection<Request> requestEntities;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     private Collection<Driver> drivers;
     public User() {
     }

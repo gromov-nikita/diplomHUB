@@ -62,6 +62,14 @@ public class DriverDAO {
         session.close();
         return drivers;
     }
+    public static List<Driver> getListOfDriversByUser(User user) {
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        List<Driver> drivers = session.createQuery(
+                "from Driver as d where d.user.id=:id").setParameter("id",user.getId()).getResultList();
+        session.close();
+        return drivers;
+    }
     public static List<Driver> getListOfDriversByName(String name) {
         Session session = DBConnection.getSessionFactory().openSession();
         Transaction transaction = session.getTransaction();

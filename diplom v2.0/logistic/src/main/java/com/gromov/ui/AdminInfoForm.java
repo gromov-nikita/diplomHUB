@@ -1,6 +1,10 @@
 package com.gromov.ui;
 
 import com.gromov.entity.User;
+import com.gromov.ui.infoTables.TableDriverForm;
+import com.gromov.ui.infoTables.TableManagerForm;
+import com.gromov.ui.infoTables.TableOrderForm;
+import com.gromov.ui.infoTables.TableRequestForm;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +18,6 @@ public class AdminInfoForm {
     private JPanel buttonPanel;
     private JButton requestButton;
     private JButton driverButton;
-    private JButton customerButton;
     private JButton orderButton;
     private JButton ManagerButton;
     private JButton backButton;
@@ -33,31 +36,29 @@ public class AdminInfoForm {
         requestButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                new TableRequestForm(user);
+                adminInfoForm.dispose();
             }
         });
         orderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                new TableOrderForm(user);
+                adminInfoForm.dispose();
             }
         });
         driverButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        customerButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
+                new TableDriverForm(user);
+                adminInfoForm.dispose();
             }
         });
         ManagerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                new TableManagerForm(user);
+                adminInfoForm.dispose();
             }
         });
         backButton.addActionListener(new ActionListener() {

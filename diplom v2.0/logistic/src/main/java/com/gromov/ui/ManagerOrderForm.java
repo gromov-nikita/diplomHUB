@@ -5,8 +5,8 @@ import com.gromov.entity.enums.DriverAvailability;
 import com.gromov.entity.enums.OrderStatus;
 import com.gromov.service.DAO.DriverDAO;
 import com.gromov.service.DAO.OrderHistoryDAO;
-import com.gromov.ui.infoTables.TableDriverForManagerForm;
-import com.gromov.ui.infoTables.TableOrderForManagerForm;
+import com.gromov.ui.infoTables.TableDriverForm;
+import com.gromov.ui.infoTables.TableOrderForm;
 
 import javax.swing.*;
 import java.awt.*;
@@ -75,14 +75,14 @@ public class ManagerOrderForm {
         getOrderTableButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new TableOrderForManagerForm(user);
+                new TableOrderForm(user);
                 managerOrderForm.dispose();
             }
         });
         getDriverTable.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new TableDriverForManagerForm(user);
+                new TableDriverForm(user);
                 managerOrderForm.dispose();
             }
         });

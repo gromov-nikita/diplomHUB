@@ -4,6 +4,7 @@ import com.gromov.entity.Driver;
 import com.gromov.entity.OrderHistory;
 import com.gromov.entity.User;
 import com.gromov.entity.enums.Rating;
+import com.gromov.entity.enums.UserType;
 import com.gromov.service.DAO.DriverDAO;
 import com.gromov.service.DAO.OrderHistoryDAO;
 
@@ -40,8 +41,13 @@ public class CommentManagerForm {
         orderCombo.setMaximumRowCount(10);
         comment.setEditable(false);
         commentManagerForm.setBounds(dimension.width-(dimension.width - 100/2),dimension.height/2-175, dimension.width - 100,350);
-        for(Driver x : DriverDAO.getListOfDrivers()) {
-            driverCombo.addItem(x);
+        if(user.getType().equals(UserType.MANAGER)) {
+            for (Driver x : DriverDAO.getListOfDriversByUser(user)) {
+                driverCombo.addItem(x);
+            }
+        }
+        else if(user.getType().equals(UserType.ADMIN)) {
+            
         }
         for(OrderHistory x : OrderHistoryDAO.getListOfOrdersByDriver((Driver)driverCombo.getSelectedItem())) {
             orderCombo.addItem(x);

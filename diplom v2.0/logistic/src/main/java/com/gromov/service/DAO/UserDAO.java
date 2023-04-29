@@ -56,6 +56,17 @@ public class UserDAO {
         session.close();
         return user;
     }
+    public static List<User> getListOfUsersByType(UserType type) {
+        Session session = null;
+        List<User> users = null;
+        session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        users = session.createQuery(
+                        "from User as u where u.type =:type")
+                .setParameter("type", type).getResultList();
+        session.close();
+        return users;
+    }
     public static List<User> getUserByType(UserType type) {
         Session session = null;
         List<User> users = null;
@@ -64,6 +75,42 @@ public class UserDAO {
         users = session.createQuery(
                         "from User as u where u.type = :type")
                 .setParameter("type", type).getResultList();
+        session.close();
+        return users;
+    }
+
+    public static List<User> getListOfUsersByNameAndType(String name,UserType type) {
+        Session session = null;
+        List<User> users = null;
+        session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        users = session.createQuery(
+                        "from User as u where u.type = :type AND u.name=:name")
+                .setParameter("type", type).setParameter("name",name).getResultList();
+        session.close();
+        return users;
+    }
+    public static List<User> getListOfUsersByEmailAndType(String email,UserType type) {
+        Session session = null;
+        List<User> users = null;
+        session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        users = session.createQuery(
+                        "from User as u where u.type = :type AND u.email=:email")
+                .setParameter("type", type).setParameter("email",email).getResultList();
+        session.close();
+        return users;
+    }
+    public static List<User> getListOfUsersByDriverAmountAndType(int driverAmount,UserType type) {
+        Session session = null;
+        List<User> users = null;
+        session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        users = session.createQuery(
+                        "from User as u where ((select count(d) from Driver as d where " +
+                                "d.user.id=u.id)=:driverAmount)" +
+                                " AND u.type =:type")
+                .setParameter("type", type).setParameter("driverAmount",driverAmount).getResultList();
         session.close();
         return users;
     }

@@ -2,8 +2,12 @@ package com.gromov.ui.infoTables;
 
 import com.gromov.entity.Request;
 import com.gromov.entity.User;
+import com.gromov.entity.enums.UserType;
 import com.gromov.service.DAO.RequestDAO;
 import com.gromov.service.dataExport.ExcelAdapter;
+import com.gromov.ui.AdminInfoForm;
+import com.gromov.ui.AdminProfileForm;
+import com.gromov.ui.ManagerOrderForm;
 import com.gromov.ui.ManagerProfileForm;
 
 import javax.swing.*;
@@ -47,7 +51,12 @@ public class TableRequestForm {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ManagerProfileForm(user);
+                if (user.getType().equals(UserType.MANAGER)) {
+                    new ManagerProfileForm(user);
+                }
+                else if (user.getType().equals(UserType.ADMIN)) {
+                    new AdminInfoForm(user);
+                }
                 tableRequestForm.dispose();
             }
         });
