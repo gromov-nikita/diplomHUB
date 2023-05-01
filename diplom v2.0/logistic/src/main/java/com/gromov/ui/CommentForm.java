@@ -13,6 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class CommentForm {
     private static JFrame commentManagerForm = new JFrame();
@@ -41,18 +42,8 @@ public class CommentForm {
         comment.setEditable(false);
         commentManagerForm.setBounds(dimension.width-(dimension.width - 100/2),dimension.height/2-175, dimension.width - 100,350);
         fillCombo();
-        if(orderCombo.getSelectedItem()!=null) {
-            if(!((OrderHistory)orderCombo.getSelectedItem()).getComment().getRating().equals(Rating.NOTHING)) {
-                comment.setText("Оценка: ");
-                comment.append(((OrderHistory) orderCombo.getSelectedItem()).getComment().getRating().getName() + "\n\n");
-                comment.append("Отзыв: \n");
-                comment.append(((OrderHistory) orderCombo.getSelectedItem()).getComment().getText() + "\n\n");
-            }
-            else {
-                comment.setText("Отзыв отсуствует");
-            }
-        }
-
+        fillOrderCombo();
+        fillTextArea();
         combo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -84,9 +75,6 @@ public class CommentForm {
             for (Driver x : DriverDAO.getListOfDriversByUser(user)) {
                 combo.addItem(x);
             }
-            for(OrderHistory x : OrderHistoryDAO.getListOfOrdersByDriver((Driver) combo.getSelectedItem())) {
-                orderCombo.addItem(x);
-            }
         }
         else if(user.getType().equals(UserType.ADMIN)) {
             label.setText("Менеджеры:");
@@ -97,13 +85,22 @@ public class CommentForm {
     }
     private void fillOrderCombo() {
         orderCombo.removeAllItems();
-        if(user.getType().equals(UserType.MANAGER)) {
-            for (OrderHistory x : OrderHistoryDAO.getListOfOrdersByDriver((Driver) combo.getSelectedItem())) {
-                orderCombo.addItem(x);
-            }
-        } else if (user.getType().equals(UserType.ADMIN)) {
-            for (OrderHistory x : OrderHistoryDAO.getListOfOrdersByManager((User) combo.getSelectedItem())) {
-                orderCombo.addItem(x);
+        List<OrderHistory> orders = null;
+        if(combo.getSelectedItem()!=null) {
+            if (user.getType().equals(UserType.MANAGER)) {
+                orders = OrderHistoryDAO.getListOfOrdersByDriver((Driver) combo.getSelectedItem());
+                if (orders != null) {
+                    for (OrderHistory x : orders) {
+                        orderCombo.addItem(x);
+                    }
+                }
+            } else if (user.getType().equals(UserType.ADMIN)) {
+                orders = OrderHistoryDAO.getListOfOrdersByManager((User) combo.getSelectedItem());
+                if (orders != null) {
+                    for (OrderHistory x : orders) {
+                        orderCombo.addItem(x);
+                    }
+                }
             }
         }
     }

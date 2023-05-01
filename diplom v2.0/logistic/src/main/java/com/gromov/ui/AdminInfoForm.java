@@ -33,7 +33,7 @@ public class AdminInfoForm {
         adminInfoForm.setResizable(false);
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension dimension = toolkit.getScreenSize();
-        adminInfoForm.setBounds(dimension.width / 2 - 125, dimension.height / 2 - 105, 400, 230);
+        adminInfoForm.setBounds(dimension.width / 2 - 200, dimension.height / 2 - 115, 400, 230);
         requestButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
