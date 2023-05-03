@@ -46,7 +46,7 @@ public class TableManagerForm {
         tableManagerForm.setResizable(false);
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension dimension = toolkit.getScreenSize();
-        tableManagerForm.setBounds(dimension.width / 2 - 500, dimension.height / 2 - 200, 1000, 400);
+        tableManagerForm.setBounds(dimension.width / 2 - 500, dimension.height / 2 - 200, 1000, 300);
         createManagerTable();
         findCombo.setMaximumRowCount(10);
         ratingCombo.setMaximumRowCount(10);
@@ -240,15 +240,17 @@ public class TableManagerForm {
     private float getManagerRating(User user) {
         float saveSMTH;
         float rating = 0;
+        int n = 0;
         for (Driver x : user.getDrivers()) {
             saveSMTH = x.getRating();
             if (saveSMTH != -1) {
                 rating += saveSMTH;
+                n++;
             }
         }
         if(rating==0) {
             rating = -1;
         }
-        return rating;
+        return rating/n;
     }
 }

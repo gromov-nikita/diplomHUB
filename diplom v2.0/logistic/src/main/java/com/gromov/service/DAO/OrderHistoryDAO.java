@@ -61,6 +61,26 @@ public class OrderHistoryDAO {
         session.close();
         return orders;
     }
+    public static List<OrderHistory> getListOfOrdersByStatusAndManagerEmail(OrderStatus status, String email) {
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        List<OrderHistory> orders;
+        if(status.equals(OrderStatus.ALL)) {
+            orders = session.createQuery(
+                            "from OrderHistory as o where o.driver.user.email=:email")
+                    .setParameter("email",email)
+                    .getResultList();
+
+        }
+        else {
+            orders = session.createQuery(
+                            "from OrderHistory as o where o.status =:status AND o.driver.user.email=:email")
+                    .setParameter("status", status).setParameter("email",email)
+                    .getResultList();
+        }
+        session.close();
+        return orders;
+    }
     public static List<OrderHistory> getListOfOrdersByUserAndStatus(OrderStatus status, User user) {
         Session session = DBConnection.getSessionFactory().openSession();
         Transaction transaction = session.getTransaction();

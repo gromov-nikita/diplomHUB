@@ -6,6 +6,7 @@ public enum FindSystem {
     DRIVER_NAME("Ф.И.О. водителя"),
     EMAIL("Email"),
     DRIVER_AMOUNT("Кол-во водителей"),
+    MANAGER_EMAIL("Email менеджера"),
     CUSTOMER_EMAIL("Email заказчика"),
     LESS_PRICE("Меньше цены"),
     MORE_MAX_WEIGHT("Больше грузоподъемности(кг)"),
@@ -30,6 +31,9 @@ public enum FindSystem {
             }
             case "Меньше цены" : {
                 return  FindSystem.LESS_PRICE;
+            }
+            case "Email менеджера" : {
+                return  FindSystem.MANAGER_EMAIL;
             }
             case "Больше грузоподъемности(кг)" : {
                 return  FindSystem.MORE_MAX_WEIGHT;

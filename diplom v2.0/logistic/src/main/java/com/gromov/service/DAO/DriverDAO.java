@@ -96,6 +96,25 @@ public class DriverDAO {
         session.close();
         return drivers;
     }
+    public static List<Driver> getListOfDriversByAvailabilityAndManagerEmail(String email,
+                                                                          DriverAvailability availability) {
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        List<Driver> drivers;
+        if(availability.equals(DriverAvailability.ALL)) {
+            drivers = session.createQuery(
+                            "from Driver as d where d.user.email=:email")
+                    .setParameter("email",email).getResultList();
+        }
+        else {
+            drivers = session.createQuery(
+                            "from Driver as d where d.user.email >=:email and d.availability=: availability")
+                    .setParameter("email", email).setParameter("availability", availability).getResultList();
+        }
+        session.close();
+        return drivers;
+
+    }
     public static List<Driver> getListOfDriversByAvailabilityAndWeightMore(int weight,DriverAvailability availability) {
         Session session = DBConnection.getSessionFactory().openSession();
         Transaction transaction = session.getTransaction();
@@ -128,6 +147,7 @@ public class DriverDAO {
         session.close();
         return drivers;
     }
+
     public static List<Driver> getListOfDriversByAvailabilityAndPriceLess(int price,DriverAvailability availability) {
         Session session = DBConnection.getSessionFactory().openSession();
         Transaction transaction = session.getTransaction();

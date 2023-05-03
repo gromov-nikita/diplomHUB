@@ -53,7 +53,7 @@ public class ManagerOrderForm {
         orderCombo.setMaximumRowCount(10);
         oldStatusCombo.setMaximumRowCount(10);
         newStatusCombo.setMaximumRowCount(10);
-        managerOrderForm.setBounds(0,dimension.height/2-75,dimension.width,150);
+        managerOrderForm.setBounds(dimension.width/2-600,dimension.height/2-75,1300,150);
         oldStatusCombo.addItem(OrderStatus.PROCESSED.getName());
         oldStatusCombo.addItem(OrderStatus.SENT.getName());
         oldStatusCombo.addItem(OrderStatus.DELIVERED.getName());

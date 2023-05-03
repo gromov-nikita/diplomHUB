@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Arrays;
 import java.util.List;
 
 public class ManagerProfileForm {
@@ -51,13 +52,12 @@ public class ManagerProfileForm {
         managerProfileForm.setBounds(dimension.width/2-500,dimension.height/2-75,1000,150);
         requestCombo.setMaximumRowCount(10);
         fillDriverComboByAvailabilityAndUser();
-        fillRequestComboByTruck();
         driverCombo.setMaximumRowCount(10);
-
         managerProfileForm.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 swapWorkStatus(requests);
+                requests=null;
                 super.windowClosing(e);
             }
         });
@@ -65,6 +65,7 @@ public class ManagerProfileForm {
             @Override
             public void actionPerformed(ActionEvent e) {
                 swapWorkStatus(requests);
+                requests = null;
                 new ChooseForm();
                 managerProfileForm.dispose();
             }
@@ -82,13 +83,14 @@ public class ManagerProfileForm {
                 RequestDAO.updateRequest(request);
                 DriverDAO.updateStatus(driver);
                 fillDriverComboByAvailabilityAndUser();
-                fillRequestComboByTruck();
+                requestCombo.removeAllItems();
             }
         });
         orderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 swapWorkStatus(requests);
+                requests = null;
                 new ManagerOrderForm(user);
                 managerProfileForm.dispose();
             }
@@ -97,6 +99,7 @@ public class ManagerProfileForm {
             @Override
             public void actionPerformed(ActionEvent e) {
                 swapWorkStatus(requests);
+                requests = null;
                 new TableRequestForm(user);
                 managerProfileForm.dispose();
             }
@@ -107,40 +110,34 @@ public class ManagerProfileForm {
                 fillRequestComboByTruck();
             }
         });
-    }
-    private void fillRequestCombo() {
-        swapWorkStatus(requests);
-        requestCombo.removeAllItems();
-        for(Request x : RequestDAO.getListOfRequestsByStatus(RequestStatus.IN_PROCESS)) {
-            requestCombo.addItem(x);
-
-        }
-    }
-    private void fillDriverComboByCargo() {
-        driverCombo.removeAllItems();
-        Request request = (Request)requestCombo.getSelectedItem();
-        if(request != null) {
-            for (Driver x : DriverDAO.getListOfFreeDriversByCargo(request.getCargo())) {
-                driverCombo.addItem(x);
+        driverCombo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                swapWorkStatus(requests);
+                requests = null;
+                requestCombo.removeAllItems();
             }
-        }
-
+        });
     }
     private void fillRequestComboByTruck() {
         swapWorkStatus(requests);
+        requests = null;
         requestCombo.removeAllItems();
         Driver driver = (Driver)driverCombo.getSelectedItem();
         if(driver != null) {
-            requests = swapWorkStatus(
-                    RequestDAO.getListOfMaxTenFreeRequestsStrongByTruck(driver.getTruck()));
-            if(requests!=null && requests.size()!=0) {
+            System.out.println("Сильно");
+            requests = swapWorkStatus(RequestDAO.getListOfMaxTenFreeRequestsStrongByTruck(driver.getTruck()));
+            System.out.println(Arrays.toString(requests.toArray()));
+            if(requests.size()!=0) {
                 for (Request x : requests) {
                     requestCombo.addItem(x);
                 }
             }
             else {
+                System.out.println("Обычно");
                 requests = swapWorkStatus(RequestDAO.getListOfMaxTenFreeRequestsByTruck(driver.getTruck()));
-                if(requests!=null && requests.size()!=0) {
+                System.out.println(Arrays.toString(requests.toArray()));
+                if(requests.size()!=0) {
                     for (Request x : requests) {
                         requestCombo.addItem(x);
                     }
@@ -155,7 +152,7 @@ public class ManagerProfileForm {
         }
     }
     private List<Request> swapWorkStatus(List<Request> requests) {
-        if(requests!=null) {
+        if(requests!=null && requests.size()!=0) {
             for (Request x : requests) {
                 if (x.getWorkStatus().equals(WorkStatus.BOOKED)) {
                     x.setWorkStatus(WorkStatus.FREE);

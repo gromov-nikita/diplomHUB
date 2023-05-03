@@ -81,10 +81,10 @@ public class RequestDAO {
     public static List<Request> getListOfMaxTenFreeRequestsStrongByTruck(Truck truck) {
         Session session = DBConnection.getSessionFactory().openSession();
         List<Request> requests = session.createQuery(
-                "from Request as r where r.workStatus=:workStatus AND r.cargo.type=:type " +
+                "from Request as r where r.status =:status AND r.workStatus=:workStatus AND r.cargo.type=:type " +
                         "AND r.cargo.weight=:weight").setParameter("workStatus",WorkStatus.FREE)
                 .setParameter("type", truck.getType()).setParameter("weight",truck.getWeight())
-                .setMaxResults(10).getResultList();
+                .setParameter("status",RequestStatus.IN_PROCESS).setMaxResults(10).getResultList();
         return requests;
     }
     public static List<Request> getListOfWrongRequests() {
@@ -100,10 +100,11 @@ public class RequestDAO {
     public static List<Request> getListOfMaxTenFreeRequestsByTruck(Truck truck) {
         Session session = DBConnection.getSessionFactory().openSession();
         List<Request> requests = session.createQuery(
-                        "from Request as r where r.workStatus=:workStatus AND r.cargo.type=:type " +
+                        "from Request as r where r.status =:status AND r.workStatus=:workStatus " +
+                                "AND r.cargo.type=:type " +
                                 "AND r.cargo.weight<=:weight").setParameter("workStatus",WorkStatus.FREE)
                 .setParameter("type", truck.getType()).setParameter("weight",truck.getWeight())
-                .setMaxResults(10).getResultList();
+                .setParameter("status",RequestStatus.IN_PROCESS).setMaxResults(10).getResultList();
         return requests;
     }
 }

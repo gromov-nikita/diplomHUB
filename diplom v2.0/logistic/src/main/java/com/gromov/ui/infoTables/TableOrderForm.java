@@ -52,7 +52,7 @@ public class TableOrderForm {
         tableOrderForm.setResizable(false);
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension dimension = toolkit.getScreenSize();
-        tableOrderForm.setBounds(0,dimension.height/2-200,dimension.width,400);
+        tableOrderForm.setBounds(0,dimension.height/2-200,1300,400);
         orderStatusCombo.setMaximumRowCount(5);
         underloadCombo.setMaximumRowCount(5);
         findCombo.setMaximumRowCount(5);
@@ -63,6 +63,9 @@ public class TableOrderForm {
         findCombo.addItem(FindSystem.MAX_WEIGHT.getName());
         findCombo.addItem(FindSystem.CARGO_WEIGHT.getName());
         findCombo.addItem(FindSystem.CARGO_TYPE.getName());
+        if(user.getType().equals(UserType.ADMIN)) {
+            findCombo.addItem(FindSystem.MANAGER_EMAIL.getName());
+        }
         underloadCombo.addItem(FindSystem.ALL.getName());
         underloadCombo.addItem(FindSystem.UNDERLOAD_TRUE.getName());
         underloadCombo.addItem(FindSystem.UNDERLOAD_FALSE.getName());
@@ -110,6 +113,7 @@ public class TableOrderForm {
     }
     private void createOrderTableBy() {
         List<OrderHistory> orders = null;
+        DefaultTableModel model = null;
         FindSystem findBy;
         if (user.getType().equals(UserType.MANAGER)) {
             if (!findField.getText().isEmpty()) {
@@ -160,6 +164,49 @@ public class TableOrderForm {
                         (String) orderStatusCombo.getSelectedItem()), user);
 
             }
+            List<OrderHistory> saveOrders = new LinkedList<>();
+            FindSystem underload = FindSystem.getFindSystemTypeByName((String)underloadCombo.getSelectedItem());
+            if(underload.equals(FindSystem.UNDERLOAD_TRUE)) {
+                for(OrderHistory x : orders) {
+                    if(x.getUnderload() != 0) {
+                        saveOrders.add(x);
+                    }
+                }
+                orders = saveOrders;
+            }
+            else {
+                if (underload.equals(FindSystem.UNDERLOAD_FALSE)) {
+                    for (OrderHistory x : orders) {
+                        if (x.getUnderload() == 0) {
+                            saveOrders.add(x);
+                        }
+                    }
+                    orders = saveOrders;
+                }
+            }
+
+            model = new DefaultTableModel(null,new String[] {
+                    "Email заказчика","Ф.И.О. заказчика","Дата отправки",
+                    "Дата доставки","Откуда","Куда","Название груза",
+                    "Масса груза(кг)","Ф.И.О. водителя","Цена(BYN/км)",
+                    "Грузоподъемность(кг)","Тип груза","Недогруз(кг)","Статус заказа",
+            }) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+            for(OrderHistory x : orders) {
+                model.insertRow(model.getRowCount(),new String[] {
+                        x.getRequest().getUser().getEmail(),x.getRequest().getUser().getName(),
+                        x.getRequest().getDateSending().toString(), x.getRequest().getDateDelivery().toString(),
+                        x.getRequest().getFrom().getName(),x.getRequest().getTo().getName(),
+                        x.getRequest().getCargo().getName(),x.getRequest().getCargo().getWeight()+"",
+                        x.getDriver().getName(), x.getDriver().getPrice()+"",x.getDriver().getTruck().getWeight()+"",
+                        x.getDriver().getTruck().getType().getName(),
+                        x.getUnderload()+"",x.getStatus().getName()
+                });
+            }
         }
         else if (user.getType().equals(UserType.ADMIN)) {
             if (!findField.getText().isEmpty()) {
@@ -174,6 +221,12 @@ public class TableOrderForm {
                     case DRIVER_NAME: {
                         orders = OrderHistoryDAO.getListOfOrdersByStatusAndDriverName(
                                 OrderStatus.getOrderStatusByName((String) orderStatusCombo.getSelectedItem()),
+                                findField.getText());
+                        break;
+                    }
+                    case MANAGER_EMAIL : {
+                        orders = OrderHistoryDAO.getListOfOrdersByStatusAndManagerEmail(
+                                OrderStatus.getOrderStatusByName((String)orderStatusCombo.getSelectedItem()),
                                 findField.getText());
                         break;
                     }
@@ -210,83 +263,107 @@ public class TableOrderForm {
                         (String) orderStatusCombo.getSelectedItem()));
 
             }
-        }
-        List<OrderHistory> saveOrders = new LinkedList<>();
-        FindSystem underload = FindSystem.getFindSystemTypeByName((String)underloadCombo.getSelectedItem());
-        if(underload.equals(FindSystem.UNDERLOAD_TRUE)) {
-            for(OrderHistory x : orders) {
-                if(x.getUnderload() != 0) {
-                    saveOrders.add(x);
-                }
-            }
-            orders = saveOrders;
-        }
-        else {
-            if (underload.equals(FindSystem.UNDERLOAD_FALSE)) {
-                for (OrderHistory x : orders) {
-                    if (x.getUnderload() == 0) {
+            List<OrderHistory> saveOrders = new LinkedList<>();
+            FindSystem underload = FindSystem.getFindSystemTypeByName((String)underloadCombo.getSelectedItem());
+            if(underload.equals(FindSystem.UNDERLOAD_TRUE)) {
+                for(OrderHistory x : orders) {
+                    if(x.getUnderload() != 0) {
                         saveOrders.add(x);
                     }
                 }
                 orders = saveOrders;
             }
-        }
-
-        DefaultTableModel model = new DefaultTableModel(null,new String[] {
-                "Email заказчика","Ф.И.О. заказчика","Дата отправки",
-                "Дата доставки","Откуда","Куда","Название груза",
-                "Масса груза(кг)","Ф.И.О. водителя","Цена(BYN/км)",
-                "Грузоподъемность(кг)","Тип груза","Недогруз(кг)","Статус заказа",
-        }) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
+            else {
+                if (underload.equals(FindSystem.UNDERLOAD_FALSE)) {
+                    for (OrderHistory x : orders) {
+                        if (x.getUnderload() == 0) {
+                            saveOrders.add(x);
+                        }
+                    }
+                    orders = saveOrders;
+                }
             }
-        };
-        for(OrderHistory x : orders) {
-            model.insertRow(model.getRowCount(),new String[] {
-                    x.getRequest().getUser().getEmail(),x.getRequest().getUser().getName(),
-                    x.getRequest().getDateSending().toString(), x.getRequest().getDateDelivery().toString(),
-                    x.getRequest().getFrom().getName(),x.getRequest().getTo().getName(),
-                    x.getRequest().getCargo().getName(),x.getRequest().getCargo().getWeight()+"",
-                    x.getDriver().getName(), x.getDriver().getPrice()+"",x.getDriver().getTruck().getWeight()+"",
-                    x.getDriver().getTruck().getType().getName(),
-                    x.getUnderload()+"",x.getStatus().getName()
-            });
+
+            model = new DefaultTableModel(null,new String[] {
+                    "Email заказчика","Ф.И.О. заказчика","Дата отправки",
+                    "Дата доставки","Откуда","Куда","Название груза",
+                    "Масса груза(кг)","Ф.И.О. водителя","Цена(BYN/км)",
+                    "Грузоподъемность(кг)","Тип груза","Недогруз(кг)","Статус заказа","Email менеджера",
+            }) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+            for(OrderHistory x : orders) {
+                model.insertRow(model.getRowCount(),new String[] {
+                        x.getRequest().getUser().getEmail(),x.getRequest().getUser().getName(),
+                        x.getRequest().getDateSending().toString(), x.getRequest().getDateDelivery().toString(),
+                        x.getRequest().getFrom().getName(),x.getRequest().getTo().getName(),
+                        x.getRequest().getCargo().getName(),x.getRequest().getCargo().getWeight()+"",
+                        x.getDriver().getName(), x.getDriver().getPrice()+"",x.getDriver().getTruck().getWeight()+"",
+                        x.getDriver().getTruck().getType().getName(),
+                        x.getUnderload()+"",x.getStatus().getName(),x.getDriver().getUser().getEmail()
+                });
+            }
         }
         orderTable.setModel(model);
 
     }
     private void createOrderTable() {
         List<OrderHistory> orders = null;
+        DefaultTableModel model = null;
         if (user.getType().equals(UserType.MANAGER)) {
             orders = OrderHistoryDAO.getListOfOrdersByManager(user);
+            model = new DefaultTableModel(null,new String[] {
+                    "Email заказчика","Ф.И.О. заказчика","Дата отправки",
+                    "Дата доставки","Откуда","Куда","Название груза",
+                    "Масса груза(кг)","Ф.И.О. водителя","Цена(BYN/км)",
+                    "Грузоподъемность(кг)","Тип груза","Недогруз(кг)","Статус заказа",
+            }) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+            for(OrderHistory x : orders) {
+                model.insertRow(model.getRowCount(),new String[] {
+                        x.getRequest().getUser().getEmail(),x.getRequest().getUser().getName(),
+                        x.getRequest().getDateSending().toString(), x.getRequest().getDateDelivery().toString(),
+                        x.getRequest().getFrom().getName(),x.getRequest().getTo().getName(),
+                        x.getRequest().getCargo().getName(),x.getRequest().getCargo().getWeight()+"",
+                        x.getDriver().getName(), x.getDriver().getPrice()+"",x.getDriver().getTruck().getWeight()+"",
+                        x.getDriver().getTruck().getType().getName(),
+                        x.getUnderload()+"",x.getStatus().getName()
+                });
+            }
         }
         else if(user.getType().equals(UserType.ADMIN)) {
             orders = OrderHistoryDAO.getListOfOrders();
-        }
-        DefaultTableModel model = new DefaultTableModel(null,new String[] {
-                "Email заказчика","Ф.И.О. заказчика","Дата отправки",
-                "Дата доставки","Откуда","Куда","Название груза",
-                "Масса груза(кг)","Ф.И.О. водителя","Цена(BYN/км)",
-                "Грузоподъемность(кг)","Тип груза","Недогруз(кг)","Статус заказа",
-        }) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
+            model = new DefaultTableModel(null,new String[] {
+                    "Email заказчика","Ф.И.О. заказчика","Дата отправки",
+                    "Дата доставки","Откуда","Куда","Название груза",
+                    "Масса груза(кг)","Ф.И.О. водителя","Цена(BYN/км)",
+                    "Грузоподъемность(кг)","Тип груза","Недогруз(кг)","Статус заказа","Email менеджера"
+            }) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+            for(OrderHistory x : orders) {
+                model.insertRow(model.getRowCount(),new String[] {
+                        x.getRequest().getUser().getEmail(),x.getRequest().getUser().getName(),
+                        x.getRequest().getDateSending().toString(), x.getRequest().getDateDelivery().toString(),
+                        x.getRequest().getFrom().getName(),x.getRequest().getTo().getName(),
+                        x.getRequest().getCargo().getName(),x.getRequest().getCargo().getWeight()+"",
+                        x.getDriver().getName(), x.getDriver().getPrice()+"",x.getDriver().getTruck().getWeight()+"",
+                        x.getDriver().getTruck().getType().getName(),
+                        x.getUnderload()+"",x.getStatus().getName(),x.getDriver().getUser().getEmail()
+                });
             }
-        };
-        for(OrderHistory x : orders) {
-            model.insertRow(model.getRowCount(),new String[] {
-                    x.getRequest().getUser().getEmail(),x.getRequest().getUser().getName(),
-                    x.getRequest().getDateSending().toString(), x.getRequest().getDateDelivery().toString(),
-                    x.getRequest().getFrom().getName(),x.getRequest().getTo().getName(),
-                    x.getRequest().getCargo().getName(),x.getRequest().getCargo().getWeight()+"",
-                    x.getDriver().getName(), x.getDriver().getPrice()+"",x.getDriver().getTruck().getWeight()+"",
-                    x.getDriver().getTruck().getType().getName(),
-                    x.getUnderload()+"",x.getStatus().getName()
-            });
         }
+
         orderTable.setModel(model);
     }
 
