@@ -132,6 +132,15 @@ public class OrderHistoryDAO {
         session.close();
         return orders;
     }
+    public static List<OrderHistory> getListOfOrdersByStatusAndDriver(OrderStatus status, Driver driver) {
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        List<OrderHistory> orders = session.createQuery(
+                "from OrderHistory as o where o.driver.id =:id AND o.status=:status")
+                .setParameter("id",driver.getId()).setParameter("status",status).getResultList();
+        session.close();
+        return orders;
+    }
     public static List<OrderHistory> getListOfOrdersByStatusAndCustomerEmail(OrderStatus status,String email) {
         Session session = DBConnection.getSessionFactory().openSession();
         Transaction transaction = session.getTransaction();

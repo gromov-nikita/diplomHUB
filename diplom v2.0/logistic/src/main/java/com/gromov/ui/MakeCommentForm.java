@@ -62,7 +62,12 @@ public class MakeCommentForm {
             public void actionPerformed(ActionEvent e) {
                 OrderHistory order = (OrderHistory) orderCombo.getSelectedItem();
                 order.getComment().setText(comment.getText());
-                order.getComment().setRating(rating);
+                if(rating==null) {
+                    order.getComment().setRating(Rating.NOTHING);
+                }
+                else {
+                    order.getComment().setRating(rating);
+                }
                 CommentDAO.updateComment(order.getComment());
                 JOptionPane.showMessageDialog(makeCommentForm,"Отзыв успешно отправлен." +
                         "\nСпасибо за уделенное время." +

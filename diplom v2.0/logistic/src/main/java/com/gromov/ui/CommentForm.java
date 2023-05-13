@@ -3,6 +3,7 @@ package com.gromov.ui;
 import com.gromov.entity.Driver;
 import com.gromov.entity.OrderHistory;
 import com.gromov.entity.User;
+import com.gromov.entity.enums.OrderStatus;
 import com.gromov.entity.enums.Rating;
 import com.gromov.entity.enums.UserType;
 import com.gromov.service.DAO.DriverDAO;
@@ -88,14 +89,16 @@ public class CommentForm {
         List<OrderHistory> orders = null;
         if(combo.getSelectedItem()!=null) {
             if (user.getType().equals(UserType.MANAGER)) {
-                orders = OrderHistoryDAO.getListOfOrdersByDriver((Driver) combo.getSelectedItem());
+                orders = OrderHistoryDAO.getListOfOrdersByStatusAndDriver(OrderStatus.COMPLETED,
+                        (Driver) combo.getSelectedItem());
                 if (orders != null) {
                     for (OrderHistory x : orders) {
                         orderCombo.addItem(x);
                     }
                 }
             } else if (user.getType().equals(UserType.ADMIN)) {
-                orders = OrderHistoryDAO.getListOfOrdersByManager((User) combo.getSelectedItem());
+                orders = OrderHistoryDAO.getListOfOrdersByStatusAndManager(OrderStatus.COMPLETED,
+                        (User) combo.getSelectedItem());
                 if (orders != null) {
                     for (OrderHistory x : orders) {
                         orderCombo.addItem(x);
@@ -106,13 +109,21 @@ public class CommentForm {
     }
     private void fillTextArea() {
         comment.setText("");
+
         if(orderCombo.getSelectedItem()!=null) {
             if (!((OrderHistory) orderCombo.getSelectedItem()).getComment().getRating().equals(Rating.NOTHING)) {
                 comment.setText("Оценка: ");
                 comment.append(((OrderHistory) orderCombo.getSelectedItem()).getComment().getRating().getName() + "\n\n");
                 comment.append("Отзыв: \n");
                 comment.append(((OrderHistory) orderCombo.getSelectedItem()).getComment().getText() + "\n\n");
-            } else {
+            }
+            else if (!((OrderHistory) orderCombo.getSelectedItem()).getComment().getText().isEmpty()) {
+                comment.setText("Оценка: ");
+                comment.append("Отсуствует\n\n");
+                comment.append("Отзыв: \n");
+                comment.append(((OrderHistory) orderCombo.getSelectedItem()).getComment().getText() + "\n\n");
+            }
+            else {
                 comment.setText("Отзыв отсуствует");
             }
         }

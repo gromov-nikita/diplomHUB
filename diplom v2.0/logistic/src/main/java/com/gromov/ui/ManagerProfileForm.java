@@ -1,13 +1,11 @@
 package com.gromov.ui;
 
 import com.gromov.entity.*;
-import com.gromov.entity.enums.DriverAvailability;
-import com.gromov.entity.enums.OrderStatus;
-import com.gromov.entity.enums.RequestStatus;
-import com.gromov.entity.enums.WorkStatus;
+import com.gromov.entity.enums.*;
 import com.gromov.service.DAO.DriverDAO;
 import com.gromov.service.DAO.OrderHistoryDAO;
 import com.gromov.service.DAO.RequestDAO;
+import com.gromov.service.dataExport.agreements.OrderAgreementHandler;
 import com.gromov.ui.infoTables.TableRequestForm;
 
 import javax.swing.*;
@@ -75,9 +73,10 @@ public class ManagerProfileForm {
             public void actionPerformed(ActionEvent e) {
                 Request request = (Request) requestCombo.getSelectedItem();
                 Driver driver = (Driver) driverCombo.getSelectedItem();
-                OrderHistoryDAO.makeOrder(new OrderHistory(OrderStatus.PROCESSED,
-                        request,
-                        (Driver)driverCombo.getSelectedItem()));
+                OrderHistory order = new OrderHistory(OrderStatus.PROCESSED,request,
+                        (Driver)driverCombo.getSelectedItem());
+                OrderAgreementHandler.fillAgreement(order);
+                OrderHistoryDAO.makeOrder(order);
                 request.setStatus(RequestStatus.ACCEPTED);
                 driver.setAvailability(DriverAvailability.NOT_AVAILABLE);
                 RequestDAO.updateRequest(request);
