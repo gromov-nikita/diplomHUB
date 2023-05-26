@@ -28,7 +28,7 @@
           <component id="849cd" class="javax.swing.JButton" binding="orderButton">
             <constraints/>
             <properties>
-              <text value="Мэнеджер заказов"/>
+              <text value="Менеджер заказов"/>
             </properties>
           </component>
           <component id="7a323" class="javax.swing.JButton" binding="requestTableButton">
